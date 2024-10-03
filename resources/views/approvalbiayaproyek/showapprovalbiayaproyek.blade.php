@@ -46,7 +46,9 @@
                         <th>Nama Proyek</th>
                         <th>jumlah</th>
                         <th>harga</th>
+                     
                         <th>bukti</th>
+                  
                         <th>action</th>
                       </tr>
                     </thead>
@@ -60,13 +62,14 @@
                         <td>{{$showdetailbiayaoperationalproyek->nama_biaya_detail_biaya_operational_proyek}}</td>
                         <td>{{$showdetailbiayaoperationalproyek->jumlah_detail_biaya_operational_proyek}}</td>
                         <td>{{$showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek}}</td>
-                        
+                    
                         <td>
                           <img src="{{asset('DetailBiayaOperationalProyek').'/'.$showdetailbiayaoperationalproyek->bukti_detail_biaya_operational_proyek}}" width='50' height='50'></td>
                         <td>
                        
                         <a href="/approvalbiayaproyekformaccept/{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">terima</button></a>
                           <a href="/approvalbiayaproyekformdecline/{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">tolak</button></a>
+                          <a href="/approvalbiayaproyekformdetail/{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">detail</button></a>
                         </td>
 
                         @endforeach

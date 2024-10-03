@@ -12,10 +12,11 @@ class ApprovalBiayaPribadi extends Model
     public $primaryKey = "kode_biaya_pribadi";
     public $incrementing = false;
     public $timestamps = true;
-    function acceptBiayaPribadi($id)
+    function acceptBiayaPribadi($id,$nama)
     {
         $ins = ApprovalBiayaPribadi::find($id);
         $ins->cek_approval_biaya_pribadi=1;
+        $ins->approved_by_biaya_pribadi = $nama;
         $ins->save();
     }
     function declineBiayaPribadi($id)
@@ -23,5 +24,11 @@ class ApprovalBiayaPribadi extends Model
         $ins = ApprovalBiayaPribadi::find($id);
         $ins->cek_approval_biaya_pribadi=0;
         $ins->save();
+    }
+       function detailBiayaPribadi($id)
+    {
+           $dt =  ApprovalBiayaPribadi::where('kode_biaya_pribadi', '=', $id)
+            ->get();
+        return $dt;
     }
 }

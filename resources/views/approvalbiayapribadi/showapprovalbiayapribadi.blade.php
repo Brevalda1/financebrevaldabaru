@@ -49,6 +49,7 @@
                         <th>tanggal</th>
                         <th>jumlah</th>
                         <th>bukti</th>
+                        <th>approved by </th>
                         <th>action</th>
                       </tr>
                     </thead>
@@ -64,6 +65,7 @@
                         <td>{{$showbiayapribadi->harga_biaya_pribadi}}</td>
                         <td>{{$showbiayapribadi->tanggal_biaya_pribadi}}</td>
                         <td>{{$showbiayapribadi->jumlah_biaya_pribadi}}</td>
+                 
                         <td>
                           <img src="{{asset('BiayaPribadiBukti').'/'.$showbiayapribadi->bukti_biaya_pribadi}}" width='50' height='50'></td>
 
@@ -71,6 +73,7 @@
               
                         <td><a href="/approvalbiayapribadiformaccept/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">Terima</button></a>
                           <a href="/approvalbiayapribadiformdecline/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">Tolak</button></a>
+                          <a href="/approvalbiayapribadiformdetail/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">detail</button></a>
                         </td>
 
                         @endforeach

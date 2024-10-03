@@ -13,10 +13,11 @@ class ApprovalBiayaProyek extends Model
     public $incrementing = true;
     public $timestamps = true;
 
-    function acceptDetailbiayaoperationalproyek($id)
+    function acceptDetailbiayaoperationalproyek($id,$nama)
     {
         $ins = ApprovalBiayaProyek::find($id);
         $ins->cek_approval_detail_biaya_operational_proyek=1;
+        $ins->approved_by_detail_biaya_operational_proyek=$nama;
         $ins->save();
     }
     function declineDetailbiayaoperationalproyek($id)
@@ -24,5 +25,11 @@ class ApprovalBiayaProyek extends Model
         $ins = ApprovalBiayaProyek::find($id);
         $ins->cek_approval_detail_biaya_operational_proyek=0;
         $ins->save();
+    }
+    function detailDetailbiayaoperationalproyek($id)
+    {
+           $dt =  ApprovalBiayaProyek::where('kode_biaya_detail_operational_proyek', '=', $id)
+            ->get();
+        return $dt;
     }
 }

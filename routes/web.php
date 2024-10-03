@@ -115,7 +115,9 @@ Route::get("/deletemanajemenperusahaanform/{no}", [manajemenperusahaanController
 Route::get("/approvalbiayaproyek", [approvalbiayaproyekController::class,"Approvalbiayaoperationalproyekselect"]);
 Route::get("/approvalbiayaproyekformaccept/{no}", [approvalbiayaproyekController::class,"Approvalbiayaoperationalproyekaccept"]);
 Route::get("/approvalbiayaproyekformdecline/{no}", [approvalbiayaproyekController::class,"Approvalbiayaoperationalproyekdecline"]);
+Route::get("/approvalbiayaproyekformdetail/{no}", [approvalbiayaproyekController::class,"Approvalbiayaoperationalproyekdetail"]);
 
 Route::get("/approvalbiayapribadi", [approvalbiayapribadiController::class,"Approvalbiayapribadiselect"]);
 Route::get("/approvalbiayapribadiformaccept/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadiaccept"]);
 Route::get("/approvalbiayapribadiformdecline/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadidecline"]);
+Route::get("/approvalbiayapribadiformdetail/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadidetail"]);

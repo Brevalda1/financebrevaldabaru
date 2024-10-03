@@ -34,12 +34,23 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Biaya Pribadi</strong>
+                            <strong class="card-title">Approval Biaya Pribadi</strong>
                     
-                            <a class="btn btn-primary" href="/biayapribadiform" role="button">tambah data</a>
+                            {{-- <a class="btn btn-primary" href="/biayapribadiform" role="button">tambah data</a> --}}
                           </div>
                         <div class="card-body">
-                  <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                          <h4>kode : {{$kode_biaya_detail_operational_proyek}}</h4>
+                          <h4>nama : {{$nama_biaya_detail_biaya_operational_proyek}}</h4>
+                          <h4>harga : {{$harga_detail_biaya_operational_proyek}}</h4>
+                          <h4>jumlah : {{$jumlah_detail_biaya_operational_proyek}}</h4>
+                          <img src="{{asset('DetailBiayaOperationalProyek').'/'.$bukti_detail_biaya_operational_proyek}}">
+                          <h4> action : </h4>
+                          <a href="/approvalbiayaproyekformaccept/{{$kode_biaya_detail_operational_proyek}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">terima</button></a>
+                            <a href="/approvalbiayaproyekformdecline/{{$kode_biaya_detail_operational_proyek}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">tolak</button></a>
+                          
+                          {{-- <img src="{{asset('BiayaPribadiBukti').'/'.$showbiayapribadi->bukti_biaya_pribadi}}" width='50' height='50'></td> --}}
+
+                  {{-- <table id="bootstrap-data-table" class="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th>kode</th>
@@ -48,8 +59,8 @@
                         <th>harga</th>
                         <th>tanggal</th>
                         <th>jumlah</th>
-                        <th>approved</th>
                         <th>bukti</th>
+                        <th>approved by </th>
                         <th>action</th>
                       </tr>
                     </thead>
@@ -65,14 +76,14 @@
                         <td>{{$showbiayapribadi->harga_biaya_pribadi}}</td>
                         <td>{{$showbiayapribadi->tanggal_biaya_pribadi}}</td>
                         <td>{{$showbiayapribadi->jumlah_biaya_pribadi}}</td>
-                        <td>{{$showbiayapribadi->approved_by_biaya_pribadi}}</td>
+                 
                         <td>
                           <img src="{{asset('BiayaPribadiBukti').'/'.$showbiayapribadi->bukti_biaya_pribadi}}" width='50' height='50'></td>
 
                           
               
-                        <td><a href="/updatebiayapribadiform/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">edit</button></a>
-                          <a href="/deletebiayapribadiform/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">delete</button></a>
+                        <td><a href="/approvalbiayapribadiformaccept/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">Terima</button></a>
+                          <a href="/approvalbiayapribadiformdecline/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">Tolak</button></a>
                         </td>
 
                         @endforeach
@@ -83,7 +94,7 @@
 
                     </tr>
                     </tbody>
-                  </table>
+                  </table> --}}
                         </div>
                     </div>
                 </div>

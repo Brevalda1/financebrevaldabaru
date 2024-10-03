@@ -59,6 +59,7 @@
                         <th>Nama Proyek</th>
                         <th>jumlah</th>
                         <th>harga</th>
+                        <th>approved by</th>
                         <th>bukti</th>
                         <th>action</th>
                       </tr>
@@ -73,6 +74,7 @@
                         <td>{{$showdetailbiayaoperationalproyek->nama_biaya_detail_biaya_operational_proyek}}</td>
                         <td>{{$showdetailbiayaoperationalproyek->jumlah_detail_biaya_operational_proyek}}</td>
                         <td>{{$showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek}}</td>
+                        <td>{{$showdetailbiayaoperationalproyek->approved_by_detail_biaya_operational_proyek}}</td>
                         
                         <td>
                           <img src="{{asset('DetailBiayaOperationalProyek').'/'.$showdetailbiayaoperationalproyek->bukti_detail_biaya_operational_proyek}}" width='50' height='50'></td>
