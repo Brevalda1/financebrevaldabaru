@@ -12,6 +12,8 @@ use App\Http\Controllers\pegawaiController;
 use App\Http\Controllers\manajemenperusahaanController;
 use App\Http\Controllers\approvalbiayaproyekController;
 use App\Http\Controllers\approvalbiayapribadiController;
+use App\Http\Controllers\reportoperationalController;
+use App\Http\Controllers\reportopertionalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,3 +123,5 @@ Route::get("/approvalbiayapribadi", [approvalbiayapribadiController::class,"Appr
 Route::get("/approvalbiayapribadiformaccept/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadiaccept"]);
 Route::get("/approvalbiayapribadiformdecline/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadidecline"]);
 Route::get("/approvalbiayapribadiformdetail/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadidetail"]);
+
+Route::get("/reportoperational", [reportopertionalController::class,"Reportselect"]);
