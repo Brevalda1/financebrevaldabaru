@@ -81,19 +81,55 @@ class gajipegawaiController extends Controller
 
     }
 
-    public function Gajipegawaiselect()
+    public function Gajipegawaiselect(Request $request)
     {
-        $sessiondata = Session()->get('login');
-        $kodeidpegawai = $sessiondata['kode_perusahaan'];
-        if(Session::Has('datas')){
-            $param['datas'] = Session::get('datas');
-        }
-        else{
-            $data = DB::select("select * from pegawai_gaji where cek_aktif_gajipegawai = 1 AND id_pegawai_gaji like '$kodeidpegawai%' order by created_at desc");
-            $param['datas'] = $data;
-            // dd($param['datas']);
-        }
-        return view("gajipegawai.showgajipegawai",$param);
+    $sessiondata = Session()->get('login');
+    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+    //     if(Session::Has('datas')){
+    //         $param['datas'] = Session::get('datas');
+    //     }
+    //     else{
+       
+    //         // $data = DB::select("select * from pegawai_gaji where cek_aktif_gajipegawai = 1 AND id_pegawai_gaji like '$kodeidpegawai%' order by created_at desc");
+    //         $data = DB::table('pegawai_gaji')
+    // ->where('cek_aktif_gajipegawai', 1)
+    // ->where('id_pegawai_gaji', 'like', "$kodeidpegawai%")
+    // ->orderBy('created_at', 'desc')
+    // ->paginate(5);
+    //         $param['datas'] = $data;
+    //         // dd($param['datas']);
+            
+    //     }
+        //ini
+
+    $kodeidpegawai = $request->input('kodeidpegawai'); // Ambil kode pegawai dari input
+    $search = $request->input('search'); // Ambil input pencarian
+
+    // Mulai query
+    $query = DB::table('pegawai_gaji')
+        ->where('cek_aktif_gajipegawai', 1)
+        ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
+
+    // Tambahkan pencarian jika ada
+    if ($search) {
+        $query->where('id_pegawai_gaji', 'like', "%$search%")
+        ->orWhere('nomor_ktp_pegawai_gaji','like',"%$search%")
+        ->orWhere('nama_pegawai_gaji','like',"%$search%")
+        ->orWhere('jumlah_kehadiran_pegawai_gaji','like',"%$search%")
+        ->orWhere('rate_pegawai_gaji','like',"%$search%")
+        ->orWhere('keterangan_pegawai_gaji','like',"%$search%")
+        ->orWhere('total_pegawai_gaji','like',"%$search%")
+        ->orWhere('jabatan_pegawai_gaji','like',"%$search%")
+        ->orWhere('nomor_rekening_pegawai_gaji','like',"%$search%")
+        ->orWhere('nama_bank_pegawai_gaji','like',"%$search%"); // Ganti dengan field yang sesuai
+    }
+
+    // Ambil data dengan paginasi
+    $data = $query->orderBy('created_at', 'desc')->paginate(5);
+
+    // return view('pegawai.index', compact('data', 'search', 'kodeidpegawai'));
+        return view("gajipegawai.showgajipegawai",compact('data', 'search', 'kodeidpegawai'));
+        
     }
     public function Gajipegawaiedit($no)
     {

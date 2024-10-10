@@ -3,7 +3,41 @@
 
   
 
-
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+  }
+  .pagination {
+      display: flex;
+      justify-content: center;
+      list-style-type: none;
+      padding: 0;
+  }
+  .pagination li {
+      margin: 0 5px;
+  }
+  .pagination a {
+      text-decoration: none;
+      padding: 10px 15px;
+      border: 1px solid #007bff;
+      color: #007bff;
+      border-radius: 5px;
+  }
+  .pagination a:hover {
+      background-color: #007bff;
+      color: white;
+  }
+  .pagination .active a {
+      background-color: #007bff;
+      color: white;
+      border: 1px solid #007bff;
+  }
+  .container {
+      max-width: 800px;
+      margin: auto;
+  }
+</style>
 
       <div class="breadcrumbs">
             <div class="col-sm-4">
@@ -41,7 +75,7 @@
                            
                             </div>
                         </div>
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                           <label for="cc-payment" class="control-label mb-1">cari</label>
                               <input id="form_id_pegawai_gaji" name="form_id_pegawai_gaji" type="text" class="form-control" aria-required="true" aria-invalid="false" >
                         <br>
@@ -53,7 +87,16 @@
                                 <option value="nama_pegawai_gaji">nama pegawai </option>
                   
                               </select><br>
-                              <a class="btn btn-primary" href="/gajipegawaiform" role="button">search</a>  <br>
+                              <a class="btn btn-primary" href="/gajipegawaiform" role="button">search</a>  <br> --}}
+                               <!-- Form Pencarian -->
+                               <div class="card-body">  
+        <div class="search-box">
+          <form action="{{ url('/gajipegawai') }}" method="GET">
+              <input type="text" name="search" placeholder="Cari nama pegawai..." value="{{ $search }}">
+              <input type="hidden" name="kodeidpegawai" value="{{ $kodeidpegawai }}">
+              <button type="submit" class="btn btn-primary">Cari</button>
+          </form>
+      </div>
                   <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
                   
                     <thead>
@@ -74,9 +117,9 @@
                     </thead>
                     <tbody>
                       @php
-                        $data = $datas;
+                        $datas = $data;
                       @endphp
-                      @foreach ( $data as $showgajipegawai)
+                      @foreach ( $datas as $showgajipegawai)
                       <tr>
                         <th scope="row">{{$showgajipegawai->id_pegawai_gaji}}</th>
                           <td>{{$showgajipegawai->nomor_ktp_pegawai_gaji}}</td>
@@ -109,9 +152,32 @@
                     </div>
                 </div>
 
-
+            
                 </div>
          
             </div>
-          
+              <!-- Pagination -->
+        <ul class="pagination">
+          @if ($data->onFirstPage())
+              <li class="disabled"><span>&laquo;</span></li>
+          @else
+              <li><a href="{{ $data->previousPageUrl() }}">&laquo;</a></li>
+          @endif
+
+          @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+              @if ($page == $data->currentPage())
+                  <li class="active"><a href="#">{{ $page }}</a></li>
+              @else
+                  <li><a href="{{ $url }}">{{ $page }}</a></li>
+              @endif
+          @endforeach
+
+          @if ($data->hasMorePages())
+              <li><a href="{{ $data->nextPageUrl() }}">&raquo;</a></li>
+          @else
+              <li class="disabled"><span>&raquo;</span></li>
+          @endif
+      </ul>
+  </div>
             @include("templatedashboard")
+            {{-- {{ $data->links() }} --}}
