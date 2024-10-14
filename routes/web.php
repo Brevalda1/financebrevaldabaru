@@ -17,6 +17,8 @@ use App\Http\Controllers\reportopertionalController;
 use App\Http\Controllers\reporbiayapribadiController;
 use App\Http\Controllers\reporbiayalainlainController;
 use App\Http\Controllers\reporbiayaoperationalproyekController;
+use App\Http\Controllers\reportdetailbiayaoperationalproyekController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -132,3 +134,5 @@ Route::get("/reportoperational", [reportopertionalController::class,"Reportselec
 Route::get("/reportbiayapribadi", [reporbiayapribadiController::class,"Reportselect"]);
 Route::get("/reportbiayalainlain", [reporbiayalainlainController::class,"Reportselect"]);
 Route::get("/reportbiayaoperationalproyek", [reporbiayaoperationalproyekController::class,"Reportselect"]);
+
+Route::get("/reportdetailbiayaoperationalproyeka/{no}", [reportdetailbiayaoperationalproyekController::class,"Detailbiayaoperationalproyekselect"]);

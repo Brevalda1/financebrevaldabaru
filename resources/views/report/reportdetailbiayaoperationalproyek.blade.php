@@ -69,10 +69,18 @@
                     <div class="card">
                         <div class="card-header">
                             <strong class="card-title"><h1>Report Biaya operational proyek</h1></strong><br>
-                            
-                    <h4>Kode Perusahaan : {{$kodeperus}}</h4>
-                    <h4>Total budget Pengeluaran biaya operational proyek: Rp{{$sum}}</h4>
-                    <h4>Total Aktual Pengeluaran biaya operational proyek: Rp{{$sum2}}</h4>
+                            @php
+                        $data2 = $datas;
+                      @endphp
+                      @foreach ($data2 as $keterangantransaksi)
+                        <h4>Nama biaya operational : {{$keterangantransaksi->nama_biaya_operational_proyek}}</h4>
+                        <h4>keterangan biaya operational : {{$keterangantransaksi->keterangan_biaya_operational_proyek}}</h4>
+                        <h4>tanggal pelaksanaan : {{$keterangantransaksi->tanggal_pelaksanaan_biaya_operational_proyek}}</h4>
+                        @endforeach
+                    <h4>Kode biaya operational proyek : {{$kodeperus}}</h4>
+                    <h4>Jumlah budget yang di anggarkan : Rp{{$budget}}</h4>
+                    <h4>Total budget yang sudah dikeluarkan : Rp{{$sum}}</h4>
+                 
                     {{-- <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4> --}}
                     {{-- <h4>Total Semua : Rp{{$totalsemua}}</h4> --}}
 
@@ -142,29 +150,31 @@
                       <tr>
                         <th>Kode</th>
                         <th>Nama Proyek</th>
-                        <th>Budget</th>
-                        <th>keterangan</th>
-                        <th>tanggal</th>
-                        <th>action</th>
-                      </tr>
+                        <th>jumlah</th>
+                        <th>harga</th>
+                        <th>approved by</th>
+                     
+                      
                     </thead>
                     <tbody>
                       @php
                       $datas = $data;
                     @endphp
-                    @foreach ( $datas as $showbiayaoperationalproyek)
+                    @foreach ( $datas as $showdetailbiayaoperationalproyek)
                     <tr>
-                      <th scope="row">{{$showbiayaoperationalproyek->kode_biaya_operational_proyek}}</th>
-                        <td>{{$showbiayaoperationalproyek->nama_biaya_operational_proyek}}</td>
-                        <td>{{$showbiayaoperationalproyek->budget_biaya_operational_proyek}}</td>
-                        <td>{{$showbiayaoperationalproyek->keterangan_biaya_operational_proyek}}</td>
-                        <td>{{$showbiayaoperationalproyek->tanggal_pelaksanaan_biaya_operational_proyek}}</td>
- 
-                        <td>
-                          <a href="/reportdetailbiayaoperationalproyeka/{{$showbiayaoperationalproyek->kode_biaya_operational_proyek}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">lihat detil</button></a>
-                        {{-- <a href="/updatebiayaoperationalproyekform/{{$showbiayaoperationalproyek->kode_biaya_operational_proyek}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">edit</button></a>
-                          <a href="/deletebiayaoperationalproyekform/{{$showbiayaoperationalproyek->kode_biaya_operational_proyek}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">delete</button></a> --}}
-                        </td>
+                      <th scope="row">{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}</th>
+                        <td>{{$showdetailbiayaoperationalproyek->nama_biaya_detail_biaya_operational_proyek}}</td>
+                        <td>{{$showdetailbiayaoperationalproyek->jumlah_detail_biaya_operational_proyek}}</td>
+                        <td>{{$showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek}}</td>
+                        <td>{{$showdetailbiayaoperationalproyek->approved_by_detail_biaya_operational_proyek}}</td>
+                        
+                        {{-- <td>
+                          <img src="{{asset('DetailBiayaOperationalProyek').'/'.$showdetailbiayaoperationalproyek->bukti_detail_biaya_operational_proyek}}" width='50' height='50'></td>
+                        <td> --}}
+                       
+                        {{-- <a href="/updatedetailbiayaoperationalproyekform/{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek.'/'.$kodeperus}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">edit</button></a>
+                          <a href="/deletedetailbiayaoperationalproyekform/{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">delete</button></a>
+                        </td> --}}
 
                         @endforeach
                       </tr>
