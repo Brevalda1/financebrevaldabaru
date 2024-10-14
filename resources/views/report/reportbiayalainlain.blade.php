@@ -68,13 +68,14 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title"><h1>ReportOperational</h1></strong><br>
+                            <strong class="card-title"><h1>Report Biaya Lain Lain</h1></strong><br>
                             
                     <h4>Kode Perusahaan : {{$kodeperus}}</h4>
-                    <h4>Total Pengeluaran Gaji pegawai : Rp{{$sum}}</h4>
-                    <h4>Total Pengeluaran Biaya Non Budgeting : Rp{{$nonbudget}}</h4>
-                    <h4>Total Semua : Rp{{$totalsemua}}</h4>
-                    <a class="btn btn-primary" href="/downloadreportoperational" role="button">Download PDF</a>
+                    <h4>Total Pengeluaran biaya lain lain : Rp{{$sum}}</h4>
+                    <a class="btn btn-primary" href="/downloadreportbiayalainlain" role="button">Download PDF</a>
+                    {{-- <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4> --}}
+                    {{-- <h4>Total Semua : Rp{{$totalsemua}}</h4> --}}
+
                             {{-- <a class="btn btn-primary" href="/biayapribadiform" role="button">tambah data</a> --}}
                           </div>
                         <div class="card-body">
@@ -135,22 +136,22 @@
                     </tr>
                     </tbody>
                   </table> --}}
-                  <h4>berikut detil dari Gaji pegawai : </h4>
+                  <h4>berikut detil dari Biaya lain lain : </h4>
                   <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
                   
                     <thead>
                       <tr>
-                        <th>ID Pegawai</th>
-                        <th>Nomor Ktp Pegawai</th>
-                        <th>Nama Pegawai</th>
-                        <th>Jumlah Kehadiran Pegawai</th>
-                        <th>rate gaji pegawai</th>
-                        <th>tambahan lain-lain</th>
-                        <th>keterangan</th>
-                        <th>total</th>
-                        <th>jabatan</th>
-                        <th>nomor rekening</th>
-                        <th>nama bank</th>
+                        <th>kode</th>
+                        <th>Nama biaya</th>
+                        <th>satuan</th>
+                        <th>harga</th>
+                        <th>tanggal</th>
+                        <th>jumlah</th>
+                       
+                        {{-- <th>bukti</th>
+                        <th>action</th> --}}
+                        {{-- <th>bukti</th>
+                        <th>action</th> --}}
                        
                       </tr>
                     </thead>
@@ -158,33 +159,72 @@
                       @php
                         $datas = $data;
                       @endphp
-                      @foreach ( $datas as $showgajipegawai)
+                      @foreach ( $datas as $showbiayalainlain)
                       <tr>
-                        <th scope="row">{{$showgajipegawai->id_pegawai_gaji}}</th>
-                          <td>{{$showgajipegawai->nomor_ktp_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->nama_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->jumlah_kehadiran_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->rate_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->tambahan_lainlain_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->keterangan_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->total_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->jabatan_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->nomor_rekening_pegawai_gaji}}</td>
-                          <td>{{$showgajipegawai->nama_bank_pegawai_gaji}}</td>
-                
-
-                          
+                        <th scope="row">{{$showbiayalainlain->kode_biaya_lainlain}}</th>
+                          <td>{{$showbiayalainlain->nama_biaya_lainlain}}</td>
+                          <td>{{$showbiayalainlain->satuan_biaya_lainlain}}</td>
+                          <td>{{$showbiayalainlain->harga_biaya_lainlain}}</td>
+                          <td>{{$showbiayalainlain->tanggal_biaya_lainlain}}</td>
+                          <td>{{$showbiayalainlain->jumlah_biaya_lainlain}}</td>
+                         
+  
+                       
                             
     
+  
+  
+  
+                      </tr>
+                
+                      @endforeach
+                    </tbody>
+                  </table>
 
 
-
+                  {{-- <h4>berikut detil dari Biaya pribadi yang di tolak : </h4>
+                  <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
+                  
+                    <thead>
+                      <tr>
+                        <th>kode</th>
+                        <th>Nama biaya</th>
+                        <th>satuan</th>
+                        <th>harga</th>
+                        <th>tanggal</th>
+                        <th>jumlah</th>
+                        <th>Reject</th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @php
+                        $datas = $data2;
+                      @endphp
+                      @foreach ( $datas as $showbiayapribadi2)
+                      <tr>
+                        <th scope="row">{{$showbiayapribadi2->kode_biaya_pribadi}}</th>
+                        <td>{{$showbiayapribadi2->nama_biaya_pribadi}}</td>
+                        <td>{{$showbiayapribadi2->satuan_biaya_pribadi}}</td>
+                        <td>{{$showbiayapribadi2->harga_biaya_pribadi}}</td>
+                        <td>{{$showbiayapribadi2->tanggal_biaya_pribadi}}</td>
+                        <td>{{$showbiayapribadi2->jumlah_biaya_pribadi}}</td>
+                        <td>{{$showbiayapribadi2->approved_by_biaya_pribadi}}</td>
+                           </td>
+  
+                      
+                            
+    
+  
+  
+  
                       </tr>
                       @endforeach
                       
                     </tbody>
-                  </table>
-<!-- Pagination -->
+                  </table> --}}
+                        </div>
+                        <!-- Pagination -->
 <ul class="pagination">
   @if ($data->onFirstPage())
       <li class="disabled"><span>&laquo;</span></li>
@@ -206,61 +246,11 @@
       <li class="disabled"><span>&raquo;</span></li>
   @endif
 </ul>
-</div>
-
-                  <h4>berikut detil dari Biaya Non budgeting : </h4>
-                  <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
-                  
-                    <thead>
-                      <tr>
-                        <th>Kode</th>
-                        <th>nama</th>
-                        <th>keterangan</th>
-                        <th>tanggal</th>
-                        <th>biaya</th>
-                       
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @php
-                        $datas = $data2;
-                      @endphp
-                      @foreach ( $datas as $showbiayaoperationalnonbudgeting)
-                      <tr>
-                        <th scope="row">{{$showbiayaoperationalnonbudgeting->kode_operational_non_budgeting}}</th>
-                          <td>{{$showbiayaoperationalnonbudgeting->nama_operational_non_budgeting}}</td>
-                          <td>{{$showbiayaoperationalnonbudgeting->keterangan_operational_non_budgeting}}</td>
-                          <td>{{$showbiayaoperationalnonbudgeting->tanggal_operational_non_budgeting}}</td>
-                          <td>{{$showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting}}</td>
-                          <td>
-                           </td>
-  
-                      
-                            
-    
-  
-  
-  
-                      </tr>
-                      @endforeach
-                      
-                    </tbody>
-                  </table>
-                        </div>
                     </div>
                 </div>
 
 
+</div>
                 </div>
             </div>
-            {{-- <div class="container mt-5">
-              <h3>Download Laporan Pegawai Gaji</h3>
-              <form action="{{ route('downloadReport') }}" method="GET">
-                  <div class="form-group">
-                      <label for="kodeidpegawaiperus">Masukkan Kode ID Pegawai Perusahaan:</label>
-                      <input type="text" name="kodeidpegawaiperus" class="form-control" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Download Laporan</button>
-              </form>
-          </div> --}}
             @include("templatedashboard")

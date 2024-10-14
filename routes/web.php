@@ -14,6 +14,12 @@ use App\Http\Controllers\approvalbiayaproyekController;
 use App\Http\Controllers\approvalbiayapribadiController;
 use App\Http\Controllers\reportoperationalController;
 use App\Http\Controllers\reportopertionalController;
+use App\Http\Controllers\reporbiayapribadiController;
+use App\Http\Controllers\reporbiayalainlainController;
+use App\Http\Controllers\reporbiayaoperationalproyekController;
+use App\Http\Controllers\reportdetailbiayaoperationalproyekController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,3 +131,13 @@ Route::get("/approvalbiayapribadiformdecline/{no}", [approvalbiayapribadiControl
 Route::get("/approvalbiayapribadiformdetail/{no}", [approvalbiayapribadiController::class,"Approvalbiayapribadidetail"]);
 
 Route::get("/reportoperational", [reportopertionalController::class,"Reportselect"]);
+Route::get("/reportbiayapribadi", [reporbiayapribadiController::class,"Reportselect"]);
+Route::get("/reportbiayalainlain", [reporbiayalainlainController::class,"Reportselect"]);
+Route::get("/reportbiayaoperationalproyek", [reporbiayaoperationalproyekController::class,"Reportselect"]);
+
+Route::get("/reportdetailbiayaoperationalproyeka/{no}", [reportdetailbiayaoperationalproyekController::class,"Detailbiayaoperationalproyekselect"]);
+
+Route::get('/downloadreportoperational', [reportopertionalController::class, 'downloadReport'])->name('downloadReport');
+Route::get('/downloadreportbiayapribadi', [reporbiayapribadiController::class, 'generatePDF']);
+Route::get('/downloadreportbiayalainlain', [reporbiayalainlainController::class, 'generatePDF']);
+Route::get('/downloadreportdetailbiayaoperationalproyek/{no}', [reportdetailbiayaoperationalproyekController::class, 'generatePDF']);

@@ -97,16 +97,20 @@
                
             </ul>
             @elseif (session()->get('role')=='pencatattransaksi')
+            
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="/gajipegawai"> <i class="menu-icon fa fa-dashboard"></i>Gaji Pegawai </a>
+                <h3 class="menu-title">master</h3>
+                <li class="menu-item-has-children dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>master</a>
+                   <ul class="sub-menu children dropdown-menu"> 
+                    <li><i class="fa fa-puzzle-piece"></i> <a href="/gajipegawai"> <i class="menu-icon fa fa-dashboard"></i>Gaji Pegawai </a>
                     {{-- <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya operational proyek</a>
                     <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya pribadi</a>
                     <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya lain-lain</a> --}}
-                    <a href="/pencatatanrekening"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan rekening</a>
-                    <a href="/pencatatanmasadepan"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan masa depan</a>
+                    <li><i class="fa fa-puzzle-piece"></i><a href="/pencatatanrekening"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan rekening</a>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="/pencatatanmasadepan"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan masa depan</a>
                     {{-- <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya operational non budgeting</a> --}}
-               
+                   </ul>
 
                     
                 </li>
@@ -136,9 +140,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Report</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportopertional">Report operational</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Report operational proyek</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Report biaya pribadi</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report biaya lain-lain</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayaoperationalproyek">Report operational proyek</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayapribadi">Report biaya pribadi</a></li>
+                        <li><i class="menu-icon ti-themify-logo"></i><a href="/reportbiayalainlain">Report biaya lain-lain</a></li>
                         <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report keseluruhan</a></li>
                 
 
@@ -182,15 +186,18 @@
             </ul>
             @elseif (session()->get('role')=='admin')
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="/gajipegawai"> <i class="menu-icon fa fa-dashboard"></i>Gaji Pegawai </a>
+                <h3 class="menu-title">master</h3>
+                <li class="menu-item-has-children dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>master</a>
+                   <ul class="sub-menu children dropdown-menu"> 
+                    <li><i class="fa fa-puzzle-piece"></i> <a href="/gajipegawai"> <i class="menu-icon fa fa-dashboard"></i>Gaji Pegawai </a>
                     {{-- <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya operational proyek</a>
                     <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya pribadi</a>
                     <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya lain-lain</a> --}}
-                    <a href="/pencatatanrekening"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan rekening</a>
-                    <a href="/pencatatanmasadepan"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan masa depan</a>
+                    <li><i class="fa fa-puzzle-piece"></i><a href="/pencatatanrekening"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan rekening</a>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="/pencatatanmasadepan"> <i class="menu-icon fa fa-dashboard"></i>Pencatatan masa depan</a>
                     {{-- <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Biaya operational non budgeting</a> --}}
-               
+                   </ul>
 
                     
                 </li>
@@ -220,9 +227,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Report</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportoperational">Report operational</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Report operational proyek</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Report biaya pribadi</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report biaya lain-lain</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayaoperationalproyek">Report operational proyek</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayapribadi">Report biaya pribadi</a></li>
+                        <li><i class="menu-icon ti-themify-logo"></i><a href="/reportbiayalainlain">Report biaya lain-lain</a></li>
                         <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report keseluruhan</a></li>
                 
 
