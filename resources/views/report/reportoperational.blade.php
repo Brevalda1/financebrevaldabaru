@@ -74,7 +74,7 @@
                     <h4>Total Pengeluaran Gaji pegawai : Rp{{$sum}}</h4>
                     <h4>Total Pengeluaran Biaya Non Budgeting : Rp{{$nonbudget}}</h4>
                     <h4>Total Semua : Rp{{$totalsemua}}</h4>
-
+                    <a class="btn btn-primary" href="/downloadreportoperational" role="button">Download PDF</a>
                             {{-- <a class="btn btn-primary" href="/biayapribadiform" role="button">tambah data</a> --}}
                           </div>
                         <div class="card-body">
@@ -213,17 +213,11 @@
                   
                     <thead>
                       <tr>
-                        <th>ID Pegawai</th>
-                        <th>Nomor Ktp Pegawai</th>
-                        <th>Nama Pegawai</th>
-                        <th>Jumlah Kehadiran Pegawai</th>
-                        <th>rate gaji pegawai</th>
-                        <th>tambahan lain-lain</th>
+                        <th>Kode</th>
+                        <th>nama</th>
                         <th>keterangan</th>
-                        <th>total</th>
-                        <th>jabatan</th>
-                        <th>nomor rekening</th>
-                        <th>nama bank</th>
+                        <th>tanggal</th>
+                        <th>biaya</th>
                        
                       </tr>
                     </thead>
@@ -259,4 +253,14 @@
 
                 </div>
             </div>
+            {{-- <div class="container mt-5">
+              <h3>Download Laporan Pegawai Gaji</h3>
+              <form action="{{ route('downloadReport') }}" method="GET">
+                  <div class="form-group">
+                      <label for="kodeidpegawaiperus">Masukkan Kode ID Pegawai Perusahaan:</label>
+                      <input type="text" name="kodeidpegawaiperus" class="form-control" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Download Laporan</button>
+              </form>
+          </div> --}}
             @include("templatedashboard")

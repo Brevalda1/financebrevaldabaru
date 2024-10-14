@@ -73,6 +73,7 @@
                     <h4>Kode Perusahaan : {{$kodeperus}}</h4>
                     <h4>Total Pengeluaran biaya Pribadi yang di terima : Rp{{$sum}}</h4>
                     <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4>
+                    <a class="btn btn-primary" href="/downloadreportbiayapribadi" role="button">Download PDF</a>
                     {{-- <h4>Total Semua : Rp{{$totalsemua}}</h4> --}}
 
                             {{-- <a class="btn btn-primary" href="/biayapribadiform" role="button">tambah data</a> --}}

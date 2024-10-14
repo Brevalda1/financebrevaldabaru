@@ -136,3 +136,8 @@ Route::get("/reportbiayalainlain", [reporbiayalainlainController::class,"Reports
 Route::get("/reportbiayaoperationalproyek", [reporbiayaoperationalproyekController::class,"Reportselect"]);
 
 Route::get("/reportdetailbiayaoperationalproyeka/{no}", [reportdetailbiayaoperationalproyekController::class,"Detailbiayaoperationalproyekselect"]);
+
+Route::get('/downloadreportoperational', [reportopertionalController::class, 'downloadReport'])->name('downloadReport');
+Route::get('/downloadreportbiayapribadi', [reporbiayapribadiController::class, 'generatePDF']);
+Route::get('/downloadreportbiayalainlain', [reporbiayalainlainController::class, 'generatePDF']);
+Route::get('/downloadreportdetailbiayaoperationalproyek/{no}', [reportdetailbiayaoperationalproyekController::class, 'generatePDF']);

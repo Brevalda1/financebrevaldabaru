@@ -5,6 +5,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+use Barryvdh\DomPDF\ServiceProvider;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Mpdf\Mpdf;
+
+
 
 
 class reportopertionalController extends Controller
@@ -24,22 +29,17 @@ class reportopertionalController extends Controller
     //     $param['datas'] = $data;
        
     // }
-    $sessiondata = Session()->get('login');
-    $id = $sessiondata['kode_perusahaan'];
-
+   
 
     // $budget = DB::select("select budget_biaya_operational_proyek as b from header_biaya_operational_proyek where kode_biaya_operational_proyek = '$id'");
-    $sum= DB::select("select SUM(db.total_pegawai_gaji) as a from pegawai_gaji db where db.Id_pegawai_gaji like '$id%' and cek_aktif_gajipegawai=1");
+   
 
 
     // $param['budget']=number_format($budget[0]->b);
-    $param['kodeperus']= $id;
-    $param['sum']=number_format($sum[0]->a);
- 
-    // untuk menampilkan data
-
     $sessiondata = Session()->get('login');
-    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+    $id = $sessiondata['kode_perusahaan'];
+
+   
     //     if(Session::Has('datas')){
     //         $param['datas'] = Session::get('datas');
     //     }
@@ -59,6 +59,11 @@ class reportopertionalController extends Controller
 
    
     // Mulai query
+    $sum= DB::select("select SUM(db.total_pegawai_gaji) as a from pegawai_gaji db where db.Id_pegawai_gaji like '$id%' and cek_aktif_gajipegawai=1");
+    $param['kodeperus']= $id;
+    $param['sum']=number_format($sum[0]->a);
+    $sessiondata = Session()->get('login');
+    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
     $query = DB::table('pegawai_gaji')
         ->where('cek_aktif_gajipegawai', 1)
         ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
@@ -68,35 +73,85 @@ class reportopertionalController extends Controller
     // Ambil data dengan paginasi
     $data = $query->orderBy('created_at', 'desc')->paginate(5);
 
-    // return view('pegawai.index', compact('data', 'search', 'kodeidpegawai'));
-    // return view("gajipegawai.showgajipegawai",compact('data', 'search', 'kodeidpegawai'));
 
-    //pencatatan masa depan 
     $jumlahbiayaopnonbudget= DB::select("select SUM(db.biaya_operational_non_budgeting) as a from biaya_operational_non_budgeting db where db.kode_operational_non_budgeting like '$id%' and cek_status_operational_non_budgeting=1");
 
 
-    // $param['budget']=number_format($budget[0]->b);
+
     $param['kodeperus']= $id;
     $param['sum']=number_format($sum[0]->a);
     $param['nonbudget']=number_format($jumlahbiayaopnonbudget[0]->a);
 
-    $nilai1 = $sum[0]->a; // Ambil nilai dari hasil query
-    $nilai2 = $jumlahbiayaopnonbudget[0]->a; // Ambil nilai dari hasil query
+    $nilai1 = $sum[0]->a; 
+    $nilai2 = $jumlahbiayaopnonbudget[0]->a; 
     
-    // Jumlahkan kedua nilai
+
     $param['totalsemua'] = $nilai1 + $nilai2;
     
-    // Format hasilnya
+ 
     $param['totalsemua'] = number_format($param['totalsemua'], 2);
     $query2 = DB::table('biaya_operational_non_budgeting')
     ->where('cek_status_operational_non_budgeting', 1)
     ->where('kode_operational_non_budgeting', 'like', "$kodeidpegawaiperus%");
 
-// Tambahkan pencarian jika ada
 
-// Ambil data dengan paginasi
+
+
 $data2= $query2->orderBy('created_at', 'desc')->paginate(5);
 
+
+
+
+
+
      return view("report.reportoperational",$param,compact('data','data2'));
+
+    
     }
+    public function downloadReport()
+    {
+        $sessiondata = Session()->get('login');
+        $id = $sessiondata['kode_perusahaan'];
+        // Mengambil total gaji pegawai
+        $sum = DB::select("select SUM(db.total_pegawai_gaji) as a from pegawai_gaji db where db.Id_pegawai_gaji like '$id%' and cek_aktif_gajipegawai=1");
+        $param['kodeperus'] = $id;
+        $param['sum'] = number_format($sum[0]->a);
+
+        $sessiondata = Session()->get('login');
+        $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+
+        // Query untuk data pegawai
+        $query = DB::table('pegawai_gaji')
+            ->where('cek_aktif_gajipegawai', 1)
+            ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
+
+        // Ambil data dengan paginasi
+        $data = $query->orderBy('created_at', 'desc')->paginate(5);
+
+        // Mengambil jumlah biaya operasional non-budgeting
+        $jumlahbiayaopnonbudget = DB::select("select SUM(db.biaya_operational_non_budgeting) as a from biaya_operational_non_budgeting db where db.kode_operational_non_budgeting like '$id%' and cek_status_operational_non_budgeting=1");
+        $param['nonbudget'] = number_format($jumlahbiayaopnonbudget[0]->a);
+
+        // Menghitung total semua nilai
+        $nilai1 = $sum[0]->a;
+        $nilai2 = $jumlahbiayaopnonbudget[0]->a;
+        $param['totalsemua'] = number_format($nilai1 + $nilai2, 2);
+
+        // Query untuk data biaya operasional non-budgeting
+        $query2 = DB::table('biaya_operational_non_budgeting')
+            ->where('cek_status_operational_non_budgeting', 1)
+            ->where('kode_operational_non_budgeting', 'like', "$kodeidpegawaiperus%");
+
+        $data2 = $query2->orderBy('created_at', 'desc')->paginate(5);
+
+        // Load view reportoperational untuk PDF
+        $pdf = PDF::loadView('printreport.reportoperational', $param, compact('data', 'data2'))->setPaper('a4', 'landscape');
+
+        // Mengembalikan file PDF
+        return $pdf->download('laporan-operasional.pdf');
+
+
+    
+}
+
 }
