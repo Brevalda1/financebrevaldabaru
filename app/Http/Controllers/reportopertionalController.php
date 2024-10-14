@@ -126,7 +126,7 @@ $data2= $query2->orderBy('created_at', 'desc')->paginate(5);
             ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
 
         // Ambil data dengan paginasi
-        $data = $query->orderBy('created_at', 'desc')->paginate(5);
+        $data = $query->orderBy('created_at', 'desc')->paginate(10000   );
 
         // Mengambil jumlah biaya operasional non-budgeting
         $jumlahbiayaopnonbudget = DB::select("select SUM(db.biaya_operational_non_budgeting) as a from biaya_operational_non_budgeting db where db.kode_operational_non_budgeting like '$id%' and cek_status_operational_non_budgeting=1");

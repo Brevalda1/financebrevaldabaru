@@ -139,7 +139,7 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Report</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportopertional">Report operational</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportoperational">Report operational</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayaoperationalproyek">Report operational proyek</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayapribadi">Report biaya pribadi</a></li>
                         <li><i class="menu-icon ti-themify-logo"></i><a href="/reportbiayalainlain">Report biaya lain-lain</a></li>
