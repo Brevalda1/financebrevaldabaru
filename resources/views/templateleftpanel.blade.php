@@ -143,7 +143,7 @@
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayaoperationalproyek">Report operational proyek</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayapribadi">Report biaya pribadi</a></li>
                         <li><i class="menu-icon ti-themify-logo"></i><a href="/reportbiayalainlain">Report biaya lain-lain</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report keseluruhan</a></li>
+                        <li><i class="menu-icon ti-themify-logo"></i><a href="/reportkeseluruhan">Report keseluruhan</a></li>
                 
 
                     </ul>
@@ -230,7 +230,7 @@
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayaoperationalproyek">Report operational proyek</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="/reportbiayapribadi">Report biaya pribadi</a></li>
                         <li><i class="menu-icon ti-themify-logo"></i><a href="/reportbiayalainlain">Report biaya lain-lain</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Report keseluruhan</a></li>
+                        <li><i class="menu-icon ti-themify-logo"></i><a href="/reportkeseluruhan">Report keseluruhan</a></li>
                 
 
                     </ul>

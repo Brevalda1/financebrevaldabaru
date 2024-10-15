@@ -18,6 +18,8 @@ use App\Http\Controllers\reporbiayapribadiController;
 use App\Http\Controllers\reporbiayalainlainController;
 use App\Http\Controllers\reporbiayaoperationalproyekController;
 use App\Http\Controllers\reportdetailbiayaoperationalproyekController;
+use App\Http\Controllers\reporkeseluruhanController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -141,3 +143,7 @@ Route::get('/downloadreportoperational', [reportopertionalController::class, 'do
 Route::get('/downloadreportbiayapribadi', [reporbiayapribadiController::class, 'generatePDF']);
 Route::get('/downloadreportbiayalainlain', [reporbiayalainlainController::class, 'generatePDF']);
 Route::get('/downloadreportdetailbiayaoperationalproyek/{no}', [reportdetailbiayaoperationalproyekController::class, 'generatePDF']);
+
+Route::get("/reportkeseluruhan", [reporkeseluruhanController::class,"Reportselect"]);
+Route::get('/pie-charts', [reporkeseluruhanController::class, 'showPieCharts'])->name('showPieCharts');
+Route::get('/pie-charts/download', [reporkeseluruhanController::class, 'downloadPDF'])->name('downloadPieChartsPDF');
