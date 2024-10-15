@@ -53,18 +53,40 @@ class pencatatanrekeningController extends Controller
 
     }
 
-    public function Pencatatanrekeningselect()
-    {
-        if(Session::Has('datas')){
-            $param['datas'] = Session::get('datas');
+    public function Pencatatanrekeningselect(Request $request)
+{
+    $sessiondata = Session()->get('login');
+    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+    // Ambil query pencarian
+    $search = $request->input('search');
+    
+    // Jika ada session 'datas', ambil dari session
+    if(Session::Has('datas')){
+        $param['datas'] = Session::get('datas');
+    } else {
+        // Query untuk pencarian dan pagination
+        $dataQuery = DB::table('pencatatan_rekening_partner')
+            ->where('cek_status_pencatatanrekening', 1)
+            ->where('kode_pencatatan_rekening_partner', 'like', "$kodeidpegawaiperus%");
+
+        // Jika ada pencarian, tambahkan kondisi filter
+        if ($search) {
+            $dataQuery->where(function ($query) use ($search) {
+                $query->where('kode_pencatatan_rekening_partner', 'like', "%$search%")->orWhere('nama_perusahaan_partner', 'like', "%$search%")
+                      ->orWhere('nomor_rekening_perusahaan_partner', 'like', "%$search%")
+                      ->orWhere('kode_transfer_rekening_perusahaan_partner', 'like', "%$search%")
+                      ->orWhere('nama_bank_perusahaan_partner', 'like', "%$search%")
+                       ->orWhere('nama_bank_perusahaan_partner', 'like', "%$search%");
+            });
         }
-        else{
-            $data = DB::select("select * from pencatatan_rekening_partner where cek_status_pencatatanrekening = 1");
-            $param['datas'] = $data;
-            // dd($param['datas']);
-        }
-        return view("pencatatanrekening.showpencatatanrekening",$param);
+
+        // Pagination
+        $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
     }
+
+    return view("pencatatanrekening.showpencatatanrekening", $param);
+}
+
     public function PencatatanRekeningedit($no)
     {
         $new = new PencatatanRekening();

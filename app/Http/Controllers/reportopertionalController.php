@@ -14,144 +14,106 @@ use Mpdf\Mpdf;
 
 class reportopertionalController extends Controller
 {
-    public function Reportselect()
-{
-    // echo $id;
-
-    // $param['kodeperus']=$id;
-    
-    // if(Session::Has('datas')){
-    //     $param['datas'] = Session::get('datas');
-    // }
-    // else{
-    //     $data = DB::select("select * from detail_biaya_operational_proyek where fk_header_biaya_operational = '$id' and cek_status_detail_biaya_operational_proyek = 1 and 
-    //     cek_approval_detail_biaya_operational_proyek = 1 order by created_at desc");
-    //     $param['datas'] = $data;
-       
-    // }
-   
-
-    // $budget = DB::select("select budget_biaya_operational_proyek as b from header_biaya_operational_proyek where kode_biaya_operational_proyek = '$id'");
-   
-
-
-    // $param['budget']=number_format($budget[0]->b);
-    $sessiondata = Session()->get('login');
-    $id = $sessiondata['kode_perusahaan'];
-
-   
-    //     if(Session::Has('datas')){
-    //         $param['datas'] = Session::get('datas');
-    //     }
-    //     else{
-       
-    //         // $data = DB::select("select * from pegawai_gaji where cek_aktif_gajipegawai = 1 AND id_pegawai_gaji like '$kodeidpegawai%' order by created_at desc");
-    //         $data = DB::table('pegawai_gaji')
-    // ->where('cek_aktif_gajipegawai', 1)
-    // ->where('id_pegawai_gaji', 'like', "$kodeidpegawai%")
-    // ->orderBy('created_at', 'desc')
-    // ->paginate(5);
-    //         $param['datas'] = $data;
-    //         // dd($param['datas']);
-            
-    //     }
-        //ini
-
-   
-    // Mulai query
-    $sum= DB::select("select SUM(db.total_pegawai_gaji) as a from pegawai_gaji db where db.Id_pegawai_gaji like '$id%' and cek_aktif_gajipegawai=1");
-    $param['kodeperus']= $id;
-    $param['sum']=number_format($sum[0]->a);
-    $sessiondata = Session()->get('login');
-    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
-    $query = DB::table('pegawai_gaji')
-        ->where('cek_aktif_gajipegawai', 1)
-        ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
-
-    // Tambahkan pencarian jika ada
-
-    // Ambil data dengan paginasi
-    $data = $query->orderBy('created_at', 'desc')->paginate(5);
-
-
-    $jumlahbiayaopnonbudget= DB::select("select SUM(db.biaya_operational_non_budgeting) as a from biaya_operational_non_budgeting db where db.kode_operational_non_budgeting like '$id%' and cek_status_operational_non_budgeting=1");
-
-
-
-    $param['kodeperus']= $id;
-    $param['sum']=number_format($sum[0]->a);
-    $param['nonbudget']=number_format($jumlahbiayaopnonbudget[0]->a);
-
-    $nilai1 = $sum[0]->a; 
-    $nilai2 = $jumlahbiayaopnonbudget[0]->a; 
-    
-
-    $param['totalsemua'] = $nilai1 + $nilai2;
-    
- 
-    $param['totalsemua'] = number_format($param['totalsemua'], 2);
-    $query2 = DB::table('biaya_operational_non_budgeting')
-    ->where('cek_status_operational_non_budgeting', 1)
-    ->where('kode_operational_non_budgeting', 'like', "$kodeidpegawaiperus%");
-
-
-
-
-$data2= $query2->orderBy('created_at', 'desc')->paginate(5);
-
-
-
-
-
-
-     return view("report.reportoperational",$param,compact('data','data2'));
-
-    
-    }
-    public function downloadReport()
+    public function Reportselect(Request $request)
     {
         $sessiondata = Session()->get('login');
         $id = $sessiondata['kode_perusahaan'];
-        // Mengambil total gaji pegawai
-        $sum = DB::select("select SUM(db.total_pegawai_gaji) as a from pegawai_gaji db where db.Id_pegawai_gaji like '$id%' and cek_aktif_gajipegawai=1");
         $param['kodeperus'] = $id;
-        $param['sum'] = number_format($sum[0]->a);
-
-        $sessiondata = Session()->get('login');
-        $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
-
-        // Query untuk data pegawai
-        $query = DB::table('pegawai_gaji')
-            ->where('cek_aktif_gajipegawai', 1)
-            ->where('id_pegawai_gaji', 'like', "$kodeidpegawaiperus%");
-
-        // Ambil data dengan paginasi
-        $data = $query->orderBy('created_at', 'desc')->paginate(10000   );
-
-        // Mengambil jumlah biaya operasional non-budgeting
-        $jumlahbiayaopnonbudget = DB::select("select SUM(db.biaya_operational_non_budgeting) as a from biaya_operational_non_budgeting db where db.kode_operational_non_budgeting like '$id%' and cek_status_operational_non_budgeting=1");
-        $param['nonbudget'] = number_format($jumlahbiayaopnonbudget[0]->a);
-
-        // Menghitung total semua nilai
-        $nilai1 = $sum[0]->a;
-        $nilai2 = $jumlahbiayaopnonbudget[0]->a;
-        $param['totalsemua'] = number_format($nilai1 + $nilai2, 2);
-
-        // Query untuk data biaya operasional non-budgeting
-        $query2 = DB::table('biaya_operational_non_budgeting')
-            ->where('cek_status_operational_non_budgeting', 1)
-            ->where('kode_operational_non_budgeting', 'like', "$kodeidpegawaiperus%");
-
-        $data2 = $query2->orderBy('created_at', 'desc')->paginate(5);
-
-        // Load view reportoperational untuk PDF
-        $pdf = PDF::loadView('printreport.reportoperational', $param, compact('data', 'data2'))->setPaper('a4', 'landscape');
-
-        // Mengembalikan file PDF
-        return $pdf->download('laporan-operasional.pdf');
-
-
     
-}
+        // Ambil filter tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        // Query 1: Pegawai Gaji dengan filter tanggal
+        $sumQuery = DB::table('pegawai_gaji')
+            ->where('cek_aktif_gajipegawai', 1)
+            ->where('id_pegawai_gaji', 'like', "$id%");
+    
+        // Filter tanggal untuk pegawai gaji jika ada
+        if ($startDate && $endDate) {
+            $sumQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $sum = $sumQuery->sum('total_pegawai_gaji');
+        $param['sum'] = number_format($sum, 2);
+    
+        // Ambil data pegawai dengan paginasi
+        $data = $sumQuery->orderBy('created_at', 'desc')->paginate(5);
+    
+        // Query 2: Biaya Operasional Non Budgeting dengan filter tanggal
+        $nonBudgetQuery = DB::table('biaya_operational_non_budgeting')
+            ->where('cek_status_operational_non_budgeting', 1)
+            ->where('kode_operational_non_budgeting', 'like', "$id%");
+    
+        // Filter tanggal hanya untuk tabel biaya_operasional_non_budgeting
+        if ($startDate && $endDate) {
+            $nonBudgetQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $jumlahbiayaopnonbudget = $nonBudgetQuery->sum('biaya_operational_non_budgeting');
+        $param['nonbudget'] = number_format($jumlahbiayaopnonbudget, 2);
+    
+        // Hitung total dari gaji pegawai dan biaya non budgeting
+        $param['totalsemua'] = number_format($sum + $jumlahbiayaopnonbudget, 2);
+    
+        // Ambil data biaya non budgeting dengan paginasi
+        $data2 = $nonBudgetQuery->orderBy('created_at', 'desc')->paginate(5);
+    
+        // Masukkan tanggal ke dalam param untuk dipakai di view
+        $param['start_date'] = $startDate;
+        $param['end_date'] = $endDate;
+    
+        return view('report.reportoperational', $param, compact('data', 'data2'));
+    }
+    public function downloadReport(Request $request)
+    {
+        $sessiondata = Session()->get('login');
+        $id = $sessiondata['kode_perusahaan'];
+        $param['kodeperus'] = $id;
+    
+        // Ambil filter tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        // Query 1: Pegawai Gaji dengan filter tanggal
+        $sumQuery = DB::table('pegawai_gaji')
+            ->where('cek_aktif_gajipegawai', 1)
+            ->where('id_pegawai_gaji', 'like', "$id%");
+    
+        // Filter tanggal untuk pegawai gaji jika ada
+        if ($startDate && $endDate) {
+            $sumQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $sum = $sumQuery->sum('total_pegawai_gaji');
+        $param['sum'] = number_format($sum, 2);
+    
+        // Query 2: Biaya Operasional Non Budgeting dengan filter tanggal
+        $nonBudgetQuery = DB::table('biaya_operational_non_budgeting')
+            ->where('cek_status_operational_non_budgeting', 1)
+            ->where('kode_operational_non_budgeting', 'like', "$id%");
+    
+        if ($startDate && $endDate) {
+            $nonBudgetQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $jumlahbiayaopnonbudget = $nonBudgetQuery->sum('biaya_operational_non_budgeting');
+        $param['nonbudget'] = number_format($jumlahbiayaopnonbudget, 2);
+    
+        // Hitung total
+        $param['totalsemua'] = number_format($sum + $jumlahbiayaopnonbudget, 2);
+    
+        // Ambil data pegawai dan biaya non budgeting untuk PDF
+        $data = $sumQuery->paginate(10000);
+        $data2 = $nonBudgetQuery->paginate(10000);
+    
+        // Masukkan tanggal ke dalam param untuk digunakan di view
+        $param['start_date'] = $startDate;
+        $param['end_date'] = $endDate;
+    
+        // Generate PDF
+        $pdf = PDF::loadView('printreport.reportoperational', $param, compact('data', 'data2'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan-operasional.pdf');
+    }
 
 }

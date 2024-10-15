@@ -28,8 +28,8 @@
     <h1>Laporan Biaya Lain-lain</h1>
     <p>Kode Perusahaan: {{ $kodeperus }}</p>
     <p>Total Biaya Lain-lain: Rp{{ $sum }}</p>
-    <p>Total Biaya Non-Budgeting: Rp{{ $nonbudget }}</p>
-    <p>Total Semua: Rp{{ $totalsemua }}</p>
+    {{-- <p>Total Biaya Non-Budgeting: Rp{{ $nonbudget }}</p>
+    <p>Total Semua: Rp{{ $totalsemua }}</p> --}}
 
     <h2>Data Biaya Lain-lain</h2>
     <table>

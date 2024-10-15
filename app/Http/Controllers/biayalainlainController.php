@@ -58,18 +58,40 @@ class biayalainlainController extends Controller
 
 }
 
-public function Biayalainlainselect()
+public function Biayalainlainselect(Request $request)
 {
+    $sessiondata = Session()->get('login');
+    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+    // Ambil input pencarian dari user
+    $search = $request->input('search');
+    
     if(Session::Has('datas')){
         $param['datas'] = Session::get('datas');
+    } else {
+        // Query dasar dengan kondisi pencarian
+        $dataQuery = DB::table('biaya_lainlain')
+            ->where('cek_status_biaya_lainlain', 1)
+            ->where('kode_biaya_lainlain', 'like', "$kodeidpegawaiperus%")
+            ->orderBy('created_at', 'desc');
+
+        // Jika ada input pencarian, tambahkan kondisi filter
+        if ($search) {
+            $dataQuery->where(function ($query) use ($search) {
+                $query->where('kode_biaya_lainlain', 'like', "%$search%")
+                      ->orWhere('nama_biaya_lainlain', 'like', "%$search%")
+                      ->orWhere('satuan_biaya_lainlain', 'like', "%$search%")
+                      ->orWhere('harga_biaya_lainlain', 'like', "%$search%")
+                      ->orWhere('tanggal_biaya_lainlain', 'like', "%$search%");
+            });
+        }
+
+        // Pagination dengan 10 item per halaman
+        $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
     }
-    else{
-        $data = DB::select("select * from biaya_lainlain where cek_status_biaya_lainlain = 1 order by created_at desc");
-        $param['datas'] = $data;
-        // dd($param['datas']);
-    }
-    return view("biayalainlain.showbiayalainlain",$param);
+
+    return view("biayalainlain.showbiayalainlain", $param);
 }
+
 
 public function Biayalainlainedit($no)
 {

@@ -22,7 +22,7 @@
                         <span class="count bg-danger">5</span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="notification">
-                        <p class="red">You have 3 Notification</p>
+                        {{-- <p class="red">You have 3 Notification</p>
                         <a class="dropdown-item media bg-flat-color-1" href="#">
                             <i class="fa fa-check"></i>
                             <p>Server #1 overloaded.</p>
@@ -34,7 +34,7 @@
                         <a class="dropdown-item media bg-flat-color-5" href="#">
                             <i class="fa fa-warning"></i>
                             <p>Server #3 overloaded.</p>
-                        </a>
+                        </a> --}}
                       </div>
                     </div>
 
@@ -46,7 +46,7 @@
                         <span class="count bg-primary">9</span>
                       </button>
                       <div class="dropdown-menu" aria-labelledby="message">
-                        <p class="red">You have 4 Mails</p>
+                        {{-- <p class="red">You have 4 Mails</p>
                         <a class="dropdown-item media bg-flat-color-1" href="#">
                             <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
                             <span class="message media-body">
@@ -78,7 +78,7 @@
                                 <span class="time float-right">15 minutes ago</span>
                                     <p>Lorem ipsum dolor sit amet, consectetur</p>
                             </span>
-                        </a>
+                        </a> --}}
                       </div>
                     </div>
                 </div>

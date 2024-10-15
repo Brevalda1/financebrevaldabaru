@@ -48,18 +48,38 @@ class pencatatanmasadepanController extends Controller
 
     }
 
-    public function Pencatatanmasadepanselect()
+    public function Pencatatanmasadepanselect(Request $request)
     {
+        $sessiondata = Session()->get('login');
+        $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+        // Ambil input pencarian dari user
+        $search = $request->input('search');
+        
         if(Session::Has('datas')){
             $param['datas'] = Session::get('datas');
+        } else {
+            // Query dasar
+            $dataQuery = DB::table('pencatatan_biaya_untuk_masa_depan')
+                ->where('cek_status_pencatatan_biaya_masa_depan', 1)
+                ->where('kode_pencatatan_biaya_masa_depan', 'like', "$kodeidpegawaiperus%")
+                ->orderBy('created_at', 'desc');
+    
+            // Jika ada pencarian, tambahkan filter pencarian
+            if ($search) {
+                $dataQuery->where(function($query) use ($search) {
+                    $query->where('kode_pencatatan_biaya_masa_depan', 'like', "%$search%")
+                          ->orWhere('nama_pencatatan_biaya_masa_depan', 'like', "%$search%")
+                          ->orWhere('keterangan_pencatatan_biaya_masa_depan', 'like', "%$search%");
+                });
+            }
+    
+            // Pagination dengan 10 item per halaman
+            $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
         }
-        else{
-            $data = DB::select("select * from pencatatan_biaya_untuk_masa_depan where cek_status_pencatatan_biaya_masa_depan = 1 order by created_at desc");
-            $param['datas'] = $data;
-            // dd($param['datas']);
-        }
-        return view("pencatatanmasadepan.showpencatatanmasadepan",$param);
+    
+        return view("pencatatanmasadepan.showpencatatanmasadepan", $param);
     }
+    
     public function Pencatatanmasadepanedit($no)
     {
         $new = new Pencatatanmasadepan();

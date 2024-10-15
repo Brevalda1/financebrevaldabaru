@@ -51,18 +51,39 @@ class biayaoperationalnonbudgetingController extends Controller
 
     }
 
-    public function Biayaoperationalnonbudgetingselect()
+    public function Biayaoperationalnonbudgetingselect(Request $request)
     {
+        $sessiondata = Session()->get('login');
+        $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+        // Ambil input pencarian dari user
+        $search = $request->input('search');
+        
         if(Session::Has('datas')){
             $param['datas'] = Session::get('datas');
+        } else {
+            // Query dasar dengan kondisi pencarian
+            $dataQuery = DB::table('biaya_operational_non_budgeting')
+                ->where('cek_status_operational_non_budgeting', 1)
+                ->where('kode_operational_non_budgeting', 'like', "$kodeidpegawaiperus%")
+                ->orderBy('created_at', 'desc');
+    
+            // Jika ada input pencarian, tambahkan kondisi filter
+            if ($search) {
+                $dataQuery->where(function ($query) use ($search) {
+                    $query->where('kode_operational_non_budgeting', 'like', "%$search%")
+                          ->orWhere('nama_operational_non_budgeting', 'like', "%$search%")
+                          ->orWhere('keterangan_operational_non_budgeting', 'like', "%$search%")
+                          ->orWhere('tanggal_operational_non_budgeting', 'like', "%$search%");
+                });
+            }
+    
+            // Pagination dengan 10 item per halaman
+            $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
         }
-        else{
-            $data = DB::select("select * from biaya_operational_non_budgeting where cek_status_operational_non_budgeting = 1 order by created_at desc");
-            $param['datas'] = $data;
-            // dd($param['datas']);
-        }
-        return view("biayaoperationalnonbudgeting.showbiayaoperationalnonbudgeting",$param);
+    
+        return view("biayaoperationalnonbudgeting.showbiayaoperationalnonbudgeting", $param);
     }
+    
 
     public function Biayaoperationalnonbudgetingedit($no)
     {
