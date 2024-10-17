@@ -24,12 +24,14 @@ class detailbiayaoperationalproyekController extends Controller
         // $param['kodeperus']=$id;
         // echo $id;
         $budget = DB::select("select budget_biaya_operational_proyek as b from header_biaya_operational_proyek where kode_biaya_operational_proyek = '$id'");
-        $sum= DB::select("select SUM(db.harga_detail_biaya_operational_proyek) as a from detail_biaya_operational_proyek db where db.fk_header_biaya_operational='$id' ");
+        $sum= DB::select("select SUM(db.harga_detail_biaya_operational_proyek) as a from detail_biaya_operational_proyek db where db.fk_header_biaya_operational='$id' and cek_status_detail_biaya_operational_proyek=1 and cek_approval_detail_biaya_operational_proyek = 1");
         $param['budget']=number_format($budget[0]->b);
     
         $param['sum']=number_format($sum[0]->a);
+        $form_harga_detail_biaya_operational_proyek =$req->form_harga_detail_biaya_operational_proyek;
+        $jumlah = $sum[0]->a+$form_harga_detail_biaya_operational_proyek;
 // echo number_format($sum[0]->a),number_format($budget[0]->b);
-        if($sum[0]->a > $budget[0]->b){
+        if($sum[0]->a > $budget[0]->b || $form_harga_detail_biaya_operational_proyek >=$budget[0]->b){
      
         $form_kode_biaya_detail_operational_proyek = $req->form_kode_biaya_detail_operational_proyek;
         $form_nama_biaya_detail_operational_proyek =$req->form_nama_biaya_detail_operational_proyek;
