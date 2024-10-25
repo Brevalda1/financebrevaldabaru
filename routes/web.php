@@ -139,11 +139,20 @@ Route::get("/reportbiayaoperationalproyek", [reporbiayaoperationalproyekControll
 
 Route::get("/reportdetailbiayaoperationalproyeka/{no}", [reportdetailbiayaoperationalproyekController::class,"Detailbiayaoperationalproyekselect"]);
 
+Route::get('/downloadpencatatanrekening', [pencatatanrekeningController::class, 'downloadReport'])->name('downloadReport');
+Route::get('/downloadpencatatanmasadepan', [pencatatanmasadepanController::class, 'downloadReport'])->name('downloadReport');
+
 Route::get('/downloadreportoperational', [reportopertionalController::class, 'downloadReport'])->name('downloadReport');
+Route::get('/downloadreportoperationalnonbudgeting', [reportopertionalController::class, 'downloadReportbiayaoperationalnonbudgeting'])->name('downloadReport');
 Route::get('/downloadreportbiayapribadi', [reporbiayapribadiController::class, 'generatePDF']);
+Route::get('/downloadreportbiayapribadiyangditolak', [reporbiayapribadiController::class, 'generatePDF2']);
 Route::get('/downloadreportbiayalainlain', [reporbiayalainlainController::class, 'generatePDF']);
 Route::get('/downloadreportdetailbiayaoperationalproyek/{no}', [reportdetailbiayaoperationalproyekController::class, 'generatePDF']);
+Route::get('/downloadreportdetailbiayaoperationalproyekyangditolak/{no}', [reportdetailbiayaoperationalproyekController::class, 'generatePDFditolak']);
 
 Route::get("/reportkeseluruhan", [reporkeseluruhanController::class,"Reportselect"]);
 Route::get('/pie-charts', [reporkeseluruhanController::class, 'showPieCharts'])->name('showPieCharts');
 Route::get('/pie-charts/download', [reporkeseluruhanController::class, 'downloadPDF'])->name('downloadPieChartsPDF');
+
+
+Route::get("/downloadreportoperationalproyek", [reporbiayaoperationalproyekController::class,"generatePDF"])->name('downloadReport');

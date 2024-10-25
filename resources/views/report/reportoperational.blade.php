@@ -107,6 +107,7 @@
                         </div>
 
                         <h4>Berikut detil dari Biaya Non Budgeting:</h4>
+                        <a class="btn btn-primary" href="/downloadreportoperationalnonbudgeting?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

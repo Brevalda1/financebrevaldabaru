@@ -122,7 +122,7 @@
                         {{ $data->links() }}
 
                         <!-- Tabel Biaya Pribadi yang Ditolak -->
-                        <h4>Berikut Detil Biaya Pribadi yang Ditolak:</h4>
+                        <h4>Berikut Detil Biaya Pribadi yang Ditolak:</h4>  <a class="btn btn-primary" href="/downloadreportbiayapribadiyangditolak?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
                             <thead>
                                 <tr>

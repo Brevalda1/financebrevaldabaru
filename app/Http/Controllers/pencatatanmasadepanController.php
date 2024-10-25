@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\Pencatatanmasadepan;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class pencatatanmasadepanController extends Controller
 {
@@ -122,5 +123,57 @@ public function Pencatatanmasadepandelete($no)
         // } else{
         //     return redirect('/owner/listbarang');
         // }
+    }
+    public function downloadReport()
+    {
+        $sessiondata = Session()->get('login');
+        $id = $sessiondata['kode_perusahaan'];
+        $param['kodeperus'] = $id;
+    
+        // Ambil filter tanggal dari request
+        // $startDate = $request->input('start_date');
+        // $endDate = $request->input('end_date');
+    
+        // Query 1: Pegawai Gaji dengan filter tanggal
+       // Query dasar
+       $dataQuery = DB::table('pencatatan_biaya_untuk_masa_depan')
+       ->where('cek_status_pencatatan_biaya_masa_depan', 1)
+       ->where('kode_pencatatan_biaya_masa_depan', 'like', "$id%")
+       ->orderBy('created_at', 'desc');
+    
+        // Filter tanggal untuk pegawai gaji jika ada
+        // if ($startDate && $endDate) {
+        //     $sumQuery->whereBetween('created_at', [$startDate, $endDate]);
+        // }
+    
+        // $sum = $sumQuery->sum('total_pegawai_gaji');
+        // $param['sum'] = number_format($sum, 2);
+    
+        // // Query 2: Biaya Operasional Non Budgeting dengan filter tanggal
+        // $nonBudgetQuery = DB::table('biaya_operational_non_budgeting')
+        //     ->where('cek_status_operational_non_budgeting', 1)
+        //     ->where('kode_operational_non_budgeting', 'like', "$id%");
+    
+        // if ($startDate && $endDate) {
+        //     $nonBudgetQuery->whereBetween('created_at', [$startDate, $endDate]);
+        // }
+    
+        // $jumlahbiayaopnonbudget = $nonBudgetQuery->sum('biaya_operational_non_budgeting');
+        // $param['nonbudget'] = number_format($jumlahbiayaopnonbudget, 2);
+    
+        // // Hitung total
+        // $param['totalsemua'] = number_format($sum + $jumlahbiayaopnonbudget, 2);
+    
+        // Ambil data pegawai dan biaya non budgeting untuk PDF
+        $data = $dataQuery->paginate(10000);
+        // $data2 = $nonBudgetQuery->paginate(10000);
+    
+        // Masukkan tanggal ke dalam param untuk digunakan di view
+        // $param['start_date'] = $startDate;
+        // $param['end_date'] = $endDate;
+    
+        // Generate PDF
+        $pdf = PDF::loadView('printreport.reportpencatatanmasadepan', $param, compact('data'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan-pencatatan rekening.pdf');
     }
 }

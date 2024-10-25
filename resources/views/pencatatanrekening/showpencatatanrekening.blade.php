@@ -65,7 +65,7 @@
                         <strong class="card-title">Daftar Rekening Perusahaan</strong>
 
                         <a class="btn btn-primary" href="/pencatatanrekeningform" role="button">Tambah Data</a>
-
+                        <a class="btn btn-primary" href="/downloadpencatatanrekening" role="button">Download PDF</a>
                         <!-- Form Pencarian -->
                         <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
                             <input type="text" name="search" class="form-control mr-sm-2" placeholder="Cari..." value="{{ request('search') }}">

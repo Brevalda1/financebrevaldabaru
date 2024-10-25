@@ -73,6 +73,7 @@
                     <h4>Kode Perusahaan : {{$kodeperus}}</h4>
                     <h4>Total budget Pengeluaran biaya operational proyek: Rp{{$sum}}</h4>
                     <h4>Total Aktual Pengeluaran biaya operational proyek: Rp{{$sum2}}</h4>
+                    <a class="btn btn-primary" href="/downloadreportoperationalproyek" role="button">Download PDF</a>
                     {{-- <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4> --}}
                     {{-- <h4>Total Semua : Rp{{$totalsemua}}</h4> --}}
 

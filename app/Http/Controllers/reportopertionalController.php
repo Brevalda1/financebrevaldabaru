@@ -116,4 +116,55 @@ class reportopertionalController extends Controller
         return $pdf->download('laporan-operasional.pdf');
     }
 
+    public function downloadReportbiayaoperationalnonbudgeting(Request $request)
+    {
+        $sessiondata = Session()->get('login');
+        $id = $sessiondata['kode_perusahaan'];
+        $param['kodeperus'] = $id;
+    
+        // Ambil filter tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        // Query 1: Pegawai Gaji dengan filter tanggal
+        $sumQuery = DB::table('pegawai_gaji')
+            ->where('cek_aktif_gajipegawai', 1)
+            ->where('id_pegawai_gaji', 'like', "$id%");
+    
+        // Filter tanggal untuk pegawai gaji jika ada
+        if ($startDate && $endDate) {
+            $sumQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $sum = $sumQuery->sum('total_pegawai_gaji');
+        $param['sum'] = number_format($sum, 2);
+    
+        // Query 2: Biaya Operasional Non Budgeting dengan filter tanggal
+        $nonBudgetQuery = DB::table('biaya_operational_non_budgeting')
+            ->where('cek_status_operational_non_budgeting', 1)
+            ->where('kode_operational_non_budgeting', 'like', "$id%");
+    
+        if ($startDate && $endDate) {
+            $nonBudgetQuery->whereBetween('created_at', [$startDate, $endDate]);
+        }
+    
+        $jumlahbiayaopnonbudget = $nonBudgetQuery->sum('biaya_operational_non_budgeting');
+        $param['nonbudget'] = number_format($jumlahbiayaopnonbudget, 2);
+    
+        // Hitung total
+        $param['totalsemua'] = number_format($sum + $jumlahbiayaopnonbudget, 2);
+    
+        // Ambil data pegawai dan biaya non budgeting untuk PDF
+        $data = $sumQuery->paginate(10000);
+        $data2 = $nonBudgetQuery->paginate(10000);
+        
+        // Masukkan tanggal ke dalam param untuk digunakan di view
+        $param['start_date'] = $startDate;
+        $param['end_date'] = $endDate;
+    
+        // Generate PDF
+        $pdf = PDF::loadView('printreport.reportoperationalbiayaoperationalnonbudgeting', $param, compact('data', 'data2'))->setPaper('a4', 'landscape');
+        return $pdf->download('laporan-operasional nonbdgeting.pdf');
+    }
+
 }

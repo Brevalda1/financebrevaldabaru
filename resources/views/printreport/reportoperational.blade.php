@@ -17,11 +17,11 @@
     </style>
 </head>
 <body>
-    <h1>Laporan Operasional</h1>
+    <h1>Laporan Operasional Gaji Pegawai</h1>
         <p>Kode Perusahaan: {{ $kodeperus }}</p>
     <p>Total Gaji Pegawai: Rp{{ $sum }}</p>
-    <p>Total Biaya Non Budgeting: Rp{{ $nonbudget }}</p>
-    <p>Total Semua: Rp{{ $totalsemua }}</p>
+    {{-- <p>Total Biaya Non Budgeting: Rp{{ $nonbudget }}</p>
+    <p>Total Semua: Rp{{ $totalsemua }}</p> --}}
 
     <h2>Data Pegawai</h2>
     <table>
@@ -71,7 +71,7 @@
         </tbody>
     </table>
 
-    <h2>Data Biaya Operasional Non Budgeting</h2>
+    {{-- <h2>Data Biaya Operasional Non Budgeting</h2>
     <table>
         <thead>
             <tr>
@@ -103,6 +103,6 @@
             </tr>
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
 </body>
 </html>

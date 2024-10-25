@@ -27,10 +27,10 @@
 <body>
     <h1>Laporan Biaya Pribadi</h1>
     <h4>Kode Perusahaan : {{$kodeperus}}</h4>
-    <h4>Total Pengeluaran biaya Pribadi yang di terima : Rp{{$sum}}</h4>
-    {{-- <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4> --}}
+    {{-- <h4>Total Pengeluaran biaya Pribadi yang di terima : Rp{{$sum}}</h4> --}}
+    <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4>
 
-    <h2>Data Biaya Pribadi yang Disetujui</h2>
+    {{-- <h2>Data Biaya Pribadi yang Disetujui</h2>
     <table>
         <thead>
             <tr>
@@ -61,12 +61,12 @@
                           <td><a href="/updatebiayapribadiform/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-info" data-target="#edit" data-toggle="modal">edit</button></a>
                             <a href="/deletebiayapribadiform/{{$showbiayapribadi->kode_biaya_pribadi}}" ><button class="btn btn-danger" data-target="#edit" data-toggle="modal">delete</button></a>
                           </td> --}}
-                      </tr>
+                      {{-- </tr>
                       @endforeach
         </tbody>
-    </table>
+    </table> --}} 
 
-    {{-- <h2>Data Biaya Pribadi yang Belum Disetujui</h2>
+    <h2>Data Biaya Pribadi yang Belum DItolak</h2>
     <table>
         <thead>
             <tr>
@@ -100,6 +100,6 @@
                       </tr>
                       @endforeach
         </tbody>
-    </table> --}}
+    </table>
 </body>
 </html>

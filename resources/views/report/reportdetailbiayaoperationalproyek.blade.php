@@ -81,7 +81,8 @@
                     <h4>Jumlah budget yang di anggarkan : Rp{{$budget}}</h4>
                     <h4>Total budget yang sudah dikeluarkan : Rp{{$sum}}</h4>
                     <a class="btn btn-primary" href="/downloadreportdetailbiayaoperationalproyek/{{$kodeperus}}" role="button">Download PDF</a>
-                 
+                    <h4>Download pdf data yang ditolak : </h4>
+                    <a class="btn btn-primary" href="/downloadreportdetailbiayaoperationalproyekyangditolak/{{$kodeperus}}" role="button">Download PDF</a>
                     {{-- <h4>Total Pengeluaran Biaya Pribadi yang di tolak : Rp{{$nonbudget}}</h4> --}}
                     {{-- <h4>Total Semua : Rp{{$totalsemua}}</h4> --}}
 
