@@ -43,7 +43,7 @@
  <form method="GET" action="/pie-charts/download">
     <input type="hidden" name="start_date" value="{{ $startDate }}">
     <input type="hidden" name="end_date" value="{{ $endDate }}">
-    {{-- <button type="submit">Download PDF</button> --}}
+    <button type="submit">Download PDF</button>
 </form>
 
 <div class="container">
