@@ -158,7 +158,7 @@
                             label: function(tooltipItem) {
                                 var value = tooltipItem.raw;
                                 var percentage = ((value / total) * 100).toFixed(2);
-                                return tooltipItem.label + ': ' + value.toLocaleString() + ' IDR (' + percentage + '%)';
+                                return tooltipItem.label + ': ' + value.toLocaleString() + ' IDR ';
                             }
                         }
                     }
