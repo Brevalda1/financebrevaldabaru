@@ -116,31 +116,53 @@ class detailbiayaoperationalproyekController extends Controller
 
 }
 
-public function Detailbiayaoperationalproyekselect($id)
+public function Detailbiayaoperationalproyekselect(Request $request, $id)
 {
-    // echo $id;
-
-    $param['kodeperus']=$id;
+    // Assign the project code
+    $param['kodeperus'] = $id;
     
-    if(Session::Has('datas')){
-        $param['datas'] = Session::get('datas');
-    }
-    else{
-        $data = DB::select("select * from detail_biaya_operational_proyek where fk_header_biaya_operational = '$id' and cek_status_detail_biaya_operational_proyek = 1 and 
-        cek_approval_detail_biaya_operational_proyek = 1 order by created_at desc");
-        $param['datas'] = $data;
-       
-    }
-    $budget = DB::select("select budget_biaya_operational_proyek as b from header_biaya_operational_proyek where kode_biaya_operational_proyek = '$id'");
-    $sum= DB::select("select SUM(db.harga_detail_biaya_operational_proyek) as a from detail_biaya_operational_proyek db where db.fk_header_biaya_operational='$id'and cek_approval_detail_biaya_operational_proyek = 1 and cek_status_detail_biaya_operational_proyek=1");
-
-
-    $param['budget']=number_format($budget[0]->b);
+    // Get search input from the request
+    $search = $request->input('search');
     
-    $param['sum']=number_format($sum[0]->a);
- 
+    // Build the query
+    $query = DB::table('detail_biaya_operational_proyek')
+        ->where('fk_header_biaya_operational', $id)
+        ->where('cek_status_detail_biaya_operational_proyek', 1)
+        ->where('cek_approval_detail_biaya_operational_proyek', 1)
+        ->orderBy('created_at', 'desc');
 
-     return view("detailbiayaoperationalproyek.showbiayaoperationalproyek",$param);
+    // Apply search filters if search input is provided
+    if (!empty($search)) {
+        $query->where(function ($q) use ($search) {
+            $q->where('kode_biaya_detail_operational_proyek', 'like', "%$search%")
+              ->orWhere('nama_biaya_detail_biaya_operational_proyek', 'like', "%$search%")
+              ->orWhere('jumlah_detail_biaya_operational_proyek', 'like', "%$search%")
+              ->orWhere('harga_detail_biaya_operational_proyek', 'like', "%$search%")
+              ->orWhere('approved_by_detail_biaya_operational_proyek', 'like', "%$search%");
+        });
+    }
+
+    // Paginate the results
+    $datas = $query->paginate(10); // Adjust the number per page as needed
+
+    // Get budget and sum
+    $budget = DB::table('header_biaya_operational_proyek')
+        ->where('kode_biaya_operational_proyek', $id)
+        ->value('budget_biaya_operational_proyek');
+
+    $sum = DB::table('detail_biaya_operational_proyek')
+        ->where('fk_header_biaya_operational', $id)
+        ->where('cek_approval_detail_biaya_operational_proyek', 1)
+        ->where('cek_status_detail_biaya_operational_proyek', 1)
+        ->sum('harga_detail_biaya_operational_proyek');
+
+    // Format budget and sum
+    $param['budget'] = number_format($budget);
+    $param['sum'] = number_format($sum);
+    $param['datas'] = $datas;
+    $param['search'] = $search;
+
+    return view("detailbiayaoperationalproyek.showbiayaoperationalproyek", $param);
 }
 
 

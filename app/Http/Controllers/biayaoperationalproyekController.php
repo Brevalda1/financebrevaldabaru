@@ -51,32 +51,67 @@ class biayaoperationalproyekController extends Controller
 
 }
 
-public function BiayaOperationalProyekselect()
-{ 
-  
-    if(Session::Has('datas')){
-        $param['datas'] = Session::get('datas');
-    }
-    else{
-        $data = DB::select("select * from header_biaya_operational_proyek where cek_status_header_biaya_operational_proyek = 1 order by created_at desc");
-        $param['datas'] = $data;
-        // dd($param['datas']);
-    }
-    return view("BiayaOperationalProyek.showBiayaOperationalProyek",$param);
-}
-public function BiayaOperationalProyekselecta()
+public function BiayaOperationalProyekselect(Request $request)
 {
-    $sessiondata = Session()->get('login');
-    $kodeidpegawai = $sessiondata['kode_perusahaan'];
-    if(Session::Has('datas')){
-        $param['datas'] = Session::get('datas');
+    // Get the search input from the request
+    $search = $request->input('search');
+
+    if (Session::has('datas')) {
+        $datas = Session::get('datas');
+    } else {
+        // Build the query
+        $query = DB::table('header_biaya_operational_proyek')
+            ->where('cek_status_header_biaya_operational_proyek', 1)
+            ->orderBy('created_at', 'desc');
+
+        // Apply search filters if search input is provided
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('nama_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('budget_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('keterangan_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('tanggal_pelaksanaan_biaya_operational_proyek', 'like', "%$search%");
+            });
+        }
+
+        // Paginate the results
+        $datas = $query->paginate(5); // Adjust the number per page as needed
     }
-    else{
-        $data = DB::select("select * from header_biaya_operational_proyek where cek_status_header_biaya_operational_proyek = 1  AND kode_biaya_operational_proyek like '$kodeidpegawai%'order by created_at desc");
-        $param['datas'] = $data;
-        // dd($param['datas']);
+
+    // Pass the data and search term to the view
+    return view('BiayaOperationalProyek.showBiayaOperationalProyekshow', ['datas' => $datas, 'search' => $search]);
+}
+public function BiayaOperationalProyekselecta(Request $request)
+{
+    // Get the search input from the request
+    $search = $request->input('search');
+
+    if (Session::has('datas')) {
+        $datas = Session::get('datas');
+    } else {
+        // Build the query
+        $query = DB::table('header_biaya_operational_proyek')
+            ->where('cek_status_header_biaya_operational_proyek', 1)
+            ->orderBy('created_at', 'desc');
+
+        // Apply search filters if search input is provided
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('kode_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('nama_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('budget_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('keterangan_biaya_operational_proyek', 'like', "%$search%")
+                  ->orWhere('tanggal_pelaksanaan_biaya_operational_proyek', 'like', "%$search%");
+            });
+        }
+
+        // Paginate the results
+        $datas = $query->paginate(5); // Adjust the number per page as needed
     }
-    return view("BiayaOperationalProyek.showBiayaOperationalProyekshow",$param);
+
+    // Pass the data and search term to the view
+    return view('BiayaOperationalProyek.showBiayaOperationalProyek', ['datas' => $datas, 'search' => $search]);
 }
 
 public function BiayaOperationalProyekedit($no)

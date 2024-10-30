@@ -44,6 +44,7 @@ class GajiPegawai extends Model
     {
         // dd($nomor_ktp_pegawai_gaji);
         $ins = GajiPegawai::find($id_pegawai_gaji);
+        
         // $ins->id_pegawai_gaji = $id_pegawai_gaji;
         $ins->nomor_ktp_pegawai_gaji = $nomor_ktp_pegawai_gaji;
         $ins->nama_pegawai_gaji = $nama_pegawai_gaji;

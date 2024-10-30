@@ -62,7 +62,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Daftar Rekening Perusahaan</strong>
+                        <strong class="card-title">Daftar Pencatatan Masa Depan</strong>
 
                         <a class="btn btn-primary" href="/pencatatanmasadepanform" role="button">Tambah Data</a>
                         <a class="btn btn-primary" href="/downloadpencatatanmasadepan" role="button">Download PDF</a>

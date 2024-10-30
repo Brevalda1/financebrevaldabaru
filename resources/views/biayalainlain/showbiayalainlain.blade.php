@@ -63,7 +63,6 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Biaya Lain-Lain</strong>
-
                         <a class="btn btn-primary" href="/biayalainlainform" role="button">Tambah Data</a>
 
                         <!-- Form Pencarian -->
@@ -97,7 +96,9 @@
                                         <td>{{ $showbiayalainlain->harga_biaya_lainlain }}</td>
                                         <td>{{ $showbiayalainlain->tanggal_biaya_lainlain }}</td>
                                         <td>{{ $showbiayalainlain->jumlah_biaya_lainlain }}</td>
-                                        <td><img src="{{ asset('BiayaLainLainBukti') . '/' . $showbiayalainlain->bukti_biaya_lainlain }}" width="50" height="50"></td>
+                                        <td>
+                                            <img src="{{ asset('BiayaLainLainBukti') . '/' . $showbiayalainlain->bukti_biaya_lainlain }}" width="50" height="50" style="cursor: pointer;" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('{{ asset('BiayaLainLainBukti') . '/' . $showbiayalainlain->bukti_biaya_lainlain }}')">
+                                        </td>
                                         <td>
                                             <a href="/updatebiayalainlainform/{{ $showbiayalainlain->kode_biaya_lainlain }}">
                                                 <button class="btn btn-info">Edit</button>
@@ -121,5 +122,29 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for Enlarging Image -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Bukti Biaya Lain-Lain</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Bukti" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript function to show the image in the modal
+    function showImageModal(imageUrl) {
+        document.getElementById('modalImage').src = imageUrl;
+    }
+</script>
 
 @include("templatedashboard")
