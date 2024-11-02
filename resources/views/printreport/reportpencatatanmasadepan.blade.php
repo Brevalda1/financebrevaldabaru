@@ -1,30 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Daftar Rekening Perusahaan</title>
+    <title>Daftar Pencatatan Masa Depan</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
+        table { width: 100%; border-collapse: collapse; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
     </style>
 </head>
 <body>
     <h1>Daftar Pencatatan Masa Depan</h1>
-        <p>Kode Perusahaan: {{ $kodeperus }}</p>
-    {{-- <p>Total Gaji Pegawai: Rp{{ $sum }}</p> --}}
-    {{-- <p>Total Biaya Non Budgeting: Rp{{ $nonbudget }}</p> --}}
-    {{-- <p>Total Semua: Rp{{ $totalsemua }}</p> --}}
-
-
-    <h2>Data Daftar Pencatatan Masa Depan</h2>
+    <p>Periode: {{ $startDate }} sampai {{ $endDate }}</p>
+    <p><strong>Biaya yang diperlukan untuk periode ini: Rp{{ number_format($totalBiaya, 2, ',', '.') }}</strong></p>
+    
     <table>
         <thead>
             <tr>
@@ -39,17 +27,15 @@
         <tbody>
             @foreach ($data as $showpencatatanmasadepan)
                 <tr>
-                    <th scope="row">{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}</th>
+                    <td>{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->nama_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->jumlah_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td>
-                    <td>{{ $showpencatatanmasadepan->created_at }}</td>
-                 
+                    <td>{{ $showpencatatanmasadepan->tanggal_pencatatan_biaya_masa_depan }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
 </body>
 </html>

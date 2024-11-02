@@ -63,9 +63,16 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Daftar Pencatatan Masa Depan</strong>
-
                         <a class="btn btn-primary" href="/pencatatanmasadepanform" role="button">Tambah Data</a>
-                        <a class="btn btn-primary" href="/downloadpencatatanmasadepan" role="button">Download PDF</a>
+                        <a class="btn btn-primary" href="/downloadpencatatanmasadepan   ?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
+
+                        
+                        <!-- Form Filter Tanggal -->
+                        <form action="{{ url()->current() }}" method="GET" class="form-inline mt-2">
+                            <input type="date" name="start_date" class="form-control mr-2" value="{{ request('start_date') }}" placeholder="Tanggal Awal">
+                            <input type="date" name="end_date" class="form-control mr-2" value="{{ request('end_date') }}" placeholder="Tanggal Akhir">
+                            <button class="btn btn-primary mr-2" type="submit">Filter</button>
+                        </form>
 
                         <!-- Form Pencarian -->
                         <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
@@ -84,6 +91,7 @@
                                     <th>Jumlah Pencatatan</th>
                                     <th>Harga</th>
                                     <th>Keterangan</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -94,7 +102,8 @@
                                         <td>{{ $showpencatatanmasadepan->nama_pencatatan_biaya_masa_depan }}</td>
                                         <td>{{ $showpencatatanmasadepan->jumlah_pencatatan_biaya_masa_depan }}</td>
                                         <td>{{ $showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan }}</td>
-                                        <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td>
+                                        <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td> 
+                                        <td>{{ $showpencatatanmasadepan->tanggal_pencatatan_biaya_masa_depan }}</td>
                                         <td>
                                             <a href="/updatepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}">
                                                 <button class="btn btn-info">Edit</button>
@@ -107,6 +116,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        <!-- Total Biaya -->
+                        <p><strong>Biaya yang diperlukan untuk periode ini: Rp{{ number_format($totalBiaya, 2, ',', '.') }}</strong></p>
 
                         <!-- Pagination -->
                         <div class="d-flex justify-content-center">

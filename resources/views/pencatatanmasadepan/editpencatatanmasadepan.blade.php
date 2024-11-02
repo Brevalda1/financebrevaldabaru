@@ -1,20 +1,18 @@
-
 @include("templateleftpanel")
 @include("templaterightpanel")
 
- <!-- Credit Card -->
- <div id="pay-invoice">
+<div id="pay-invoice">
     <div class="card-body">
         <div class="card-title">
-            <h3 class="text-center">pencatatan masa depan</h3>
+            <h3 class="text-center">Pencatatan Masa Depan</h3>
         </div>
         <hr>
-        <form action="/updatepencatatanmasadepanform/{no}" method="post" novalidate="novalidate">
+        <form action="/updatepencatatanmasadepanform/{{$kode_pencatatan_biaya_masa_depan}}" method="post" novalidate="novalidate">
             <div class="form-group text-center">
                 @csrf
             </div>
             <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">kode pencatatan</label>
+                <label for="cc-payment" class="control-label mb-1">Kode Pencatatan</label>
                 <input id="cc-pament" name="form_kode_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$kode_pencatatan_biaya_masa_depan}}" readonly>
             </div>
             <div class="form-group">
@@ -22,32 +20,30 @@
                 <input id="cc-pament" name="form_nama_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$nama_pencatatan_biaya_masa_depan}}">
             </div>
             <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">Jumlah pencatatan</label>
+                <label for="cc-payment" class="control-label mb-1">Jumlah Pencatatan</label>
                 <input id="cc-pament" name="form_jumlah_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$jumlah_pencatatan_biaya_masa_depan}}">
             </div>
             <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">harga</label>
+                <label for="cc-payment" class="control-label mb-1">Harga</label>
                 <input id="cc-pament" name="form_harga_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$harga_pencatatan_biaya_masa_depan}}">
             </div>
             <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">keterangan</label>
+                <label for="cc-payment" class="control-label mb-1">Keterangan</label>
                 <input id="cc-pament" name="form_keterangan_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$keterangan_pencatatan_biaya_masa_depan}}">
             </div>
-            
-            <div class="row">
-                
+            <div class="form-group">
+                <label for="cc-payment" class="control-label mb-1">Tanggal</label>
+                <input id="cc-pament" name="form_tanggal_pencatatan_biaya_masa_depan" type="date" class="form-control" aria-required="true" aria-invalid="false" value="{{$tanggal_pencatatan_biaya_masa_depan}}">
             </div>
+            <div class="row"></div>
             <div>
                 <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
                     <i class="fa fa-lock fa-lg"></i>&nbsp;
-                    <span id="payment-button-amount">submit</span>
+                    <span id="payment-button-amount">Submit</span>
                     <span id="payment-button-sending" style="display:none;">Sending…</span>
                 </button>
             </div>
         </form>
     </div>
 </div>
-
-</div>
-</div> <!-- .card -->
 @include("templatedashboard")

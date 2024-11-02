@@ -33,7 +33,10 @@
                 <label for="cc-payment" class="control-label mb-1">keterangan</label>
                 <input id="cc-pament" name="form_keterangan_pencatatan_biaya_masa_depan" type="text" class="form-control" aria-required="true" aria-invalid="false" >
             </div>
-            
+            <div class="form-group">
+                <label for="cc-payment" class="control-label mb-1">Tanggal</label>
+                <input id="cc-pament" name="form_tanggal_pencatatan_biaya_masa_depan" type="date" class="form-control" aria-required="true" aria-invalid="false" >
+            </div>
             <div class="row">
                 
             </div>
