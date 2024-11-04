@@ -1,5 +1,25 @@
+
+
+<style>
+    /* Sembunyikan tombol search */
+    .search-trigger,
+    .search-form {
+        display: none;
+    }
+
+    /* Sembunyikan tombol notification */
+    #notification {
+        display: none;
+    }
+
+    /* Sembunyikan tombol email */
+    #message {
+        display: none;
+    }
+</style>
 <div id="right-panel" class="right-panel">
 
+    
     <!-- Header-->
     <header id="header" class="header">
 
