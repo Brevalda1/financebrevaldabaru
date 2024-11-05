@@ -37,10 +37,11 @@
                 <th>kode</th>
                 <th>Nama biaya</th>
                 <th>satuan</th>
-                <th>harga</th>
+                {{-- <th>harga</th> --}}
                 <th>tanggal</th>
                 <th>jumlah</th>
                 <th>approved</th>
+                <th>harga</th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +50,11 @@
                         <th scope="row">{{$showbiayapribadi->kode_biaya_pribadi}}</th>
                           <td>{{$showbiayapribadi->nama_biaya_pribadi}}</td>
                           <td>{{$showbiayapribadi->satuan_biaya_pribadi}}</td>
-                          <td>{{$showbiayapribadi->harga_biaya_pribadi}}</td>
+                          {{-- <td>{{$showbiayapribadi->harga_biaya_pribadi}}</td> --}}
                           <td>{{$showbiayapribadi->tanggal_biaya_pribadi}}</td>
                           <td>{{$showbiayapribadi->jumlah_biaya_pribadi}}</td>
                           <td>{{$showbiayapribadi->approved_by_biaya_pribadi}}</td>
+                          <td>{{$showbiayapribadi->harga_biaya_pribadi}}</td>
                           {{-- <td>
                             <img src="{{asset('BiayaPribadiBukti').'/'.$showbiayapribadi->bukti_biaya_pribadi}}" width='50' height='50'></td>
    --}}

@@ -38,9 +38,9 @@
                 <th>kode</th>
                 <th>Nama biaya</th>
                 <th>satuan</th>
-                <th>harga</th>
                 <th>tanggal</th>
                 <th>jumlah</th>
+                <th>harga</th>
             </tr>
         </thead>
         <tbody>
@@ -49,9 +49,9 @@
               <th scope="row">{{$showbiayalainlain->kode_biaya_lainlain}}</th>
                 <td>{{$showbiayalainlain->nama_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->satuan_biaya_lainlain}}</td>
-                <td>{{$showbiayalainlain->harga_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->tanggal_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->jumlah_biaya_lainlain}}</td>
+                <td>{{$showbiayalainlain->harga_biaya_lainlain}}</td>
                
 
              

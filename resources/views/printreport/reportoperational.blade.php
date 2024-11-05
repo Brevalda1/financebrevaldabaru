@@ -30,12 +30,13 @@
                 <th>ID Pegawai</th>
                 <th>Nomor Ktp Pegawai</th>
                 <th>Nama Pegawai</th>
+                <th>jabatan</th>
                 <th>Jumlah Kehadiran Pegawai</th>
                 <th>rate gaji pegawai</th>
                 <th>tambahan lain-lain</th>
                 <th>keterangan</th>
                 <th>total</th>
-                <th>jabatan</th>
+   
                 <th>nomor rekening</th>
                 <th>nama bank</th>
                
@@ -50,12 +51,12 @@
                         <th scope="row">{{$showg->id_pegawai_gaji}}</th>
                           <td>{{$showg->nomor_ktp_pegawai_gaji}}</td>
                           <td>{{$showg->nama_pegawai_gaji}}</td>
+                          <td>{{$showg->jabatan_pegawai_gaji}}</td>
                           <td>{{$showg->jumlah_kehadiran_pegawai_gaji}}</td>
                           <td>{{$showg->rate_pegawai_gaji}}</td>
                           <td>{{$showg->tambahan_lainlain_pegawai_gaji}}</td>
                           <td>{{$showg->keterangan_pegawai_gaji}}</td>
                           <td>{{$showg->total_pegawai_gaji}}</td>
-                          <td>{{$showg->jabatan_pegawai_gaji}}</td>
                           <td>{{$showg->nomor_rekening_pegawai_gaji}}</td>
                           <td>{{$showg->nama_bank_pegawai_gaji}}</td>
                 
