@@ -36,7 +36,15 @@
         margin: auto;
     }
 </style>
-
+{{-- @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif --}}
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
@@ -175,4 +183,6 @@
     function setDeleteAction(url) {
         document.getElementById('confirmDeleteButton').href = url;
     }
+
+    
 </script>

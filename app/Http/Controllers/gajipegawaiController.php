@@ -47,18 +47,53 @@ class gajipegawaiController extends Controller
     $form_total_pegawai_gaji = $total;
 
     // Save data to the database
+    // $new = new GajiPegawai();
+    // $new->id_pegawai_gaji = $form_id_pegawai_gaji;
+    // $new->nomor_ktp_pegawai_gaji = $form_nomor_ktp_pegawai_gaji;
+    // $new->nama_pegawai_gaji = $form_nama_pegawai_gaji;
+    // $new->jumlah_kehadiran_pegawai_gaji = $form_jumlah_kehadiran_pegawai_gaji;
+    // $new->rate_pegawai_gaji = $form_rate_pegawai_gaji;
+    // $new->tambahan_lainlain_pegawai_gaji = $form_tambahan_lainlain_pegawai_gaji;
+    // $new->keterangan_pegawai_gaji = $form_keterangan_pegawai_gaji;
+    // $new->total_pegawai_gaji = $form_total_pegawai_gaji;
+    // $new->jabatan_pegawai_gaji = $form_jabatan_pegawai_gaji;
+    // $new->nomor_rekening_pegawai_gaji = $form_nomor_rekening_pegawai_gaji;
+    // $new->nama_bank_pegawai_gaji = $form_nama_bank_pegawai_gaji;
+    // $new->cek_aktif_gajipegawai = 1;
+
+    // $new->save();
+
+    // return redirect("/gajipegawai");
+    // Validasi input untuk memastikan tidak ada yang null
+    $req->validate([
+        'form_id_pegawai_gaji' => 'required',
+        'form_nomor_ktp_pegawai_gaji' => 'required',
+        'form_nama_pegawai_gaji' => 'required',
+        'form_jumlah_kehadiran_pegawai_gaji' => 'required|numeric',
+        'form_rate_pegawai_gaji' => 'required|numeric',
+        'form_tambahan_lainlain_pegawai_gaji' => 'required|numeric',
+        'form_keterangan_pegawai_gaji' => 'nullable',
+        'form_nomor_rekening_pegawai_gaji' => 'required',
+        'form_nama_bank_pegawai_gaji' => 'required',
+        'form_jabatan_pegawai_gaji' => 'required',
+    ]);
+
+    // Menghitung total di server side
+    $total = ($req->form_rate_pegawai_gaji * $req->form_jumlah_kehadiran_pegawai_gaji) + $req->form_tambahan_lainlain_pegawai_gaji;
+
+    // Menyimpan data ke database
     $new = new GajiPegawai();
-    $new->id_pegawai_gaji = $form_id_pegawai_gaji;
-    $new->nomor_ktp_pegawai_gaji = $form_nomor_ktp_pegawai_gaji;
-    $new->nama_pegawai_gaji = $form_nama_pegawai_gaji;
-    $new->jumlah_kehadiran_pegawai_gaji = $form_jumlah_kehadiran_pegawai_gaji;
-    $new->rate_pegawai_gaji = $form_rate_pegawai_gaji;
-    $new->tambahan_lainlain_pegawai_gaji = $form_tambahan_lainlain_pegawai_gaji;
-    $new->keterangan_pegawai_gaji = $form_keterangan_pegawai_gaji;
-    $new->total_pegawai_gaji = $form_total_pegawai_gaji;
-    $new->jabatan_pegawai_gaji = $form_jabatan_pegawai_gaji;
-    $new->nomor_rekening_pegawai_gaji = $form_nomor_rekening_pegawai_gaji;
-    $new->nama_bank_pegawai_gaji = $form_nama_bank_pegawai_gaji;
+    $new->id_pegawai_gaji = $req->form_id_pegawai_gaji;
+    $new->nomor_ktp_pegawai_gaji = $req->form_nomor_ktp_pegawai_gaji;
+    $new->nama_pegawai_gaji = $req->form_nama_pegawai_gaji;
+    $new->jumlah_kehadiran_pegawai_gaji = $req->form_jumlah_kehadiran_pegawai_gaji;
+    $new->rate_pegawai_gaji = $req->form_rate_pegawai_gaji;
+    $new->tambahan_lainlain_pegawai_gaji = $req->form_tambahan_lainlain_pegawai_gaji;
+    $new->keterangan_pegawai_gaji = $req->form_keterangan_pegawai_gaji;
+    $new->total_pegawai_gaji = $total;
+    $new->jabatan_pegawai_gaji = $req->form_jabatan_pegawai_gaji;
+    $new->nomor_rekening_pegawai_gaji = $req->form_nomor_rekening_pegawai_gaji;
+    $new->nama_bank_pegawai_gaji = $req->form_nama_bank_pegawai_gaji;
     $new->cek_aktif_gajipegawai = 1;
 
     $new->save();
