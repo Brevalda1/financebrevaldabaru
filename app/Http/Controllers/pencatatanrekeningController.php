@@ -91,7 +91,6 @@ class pencatatanrekeningController extends Controller
     public function PencatatanRekeningedit($no)
     {
         $new = new PencatatanRekening();
-        // $barang = new Barang();
         $arrBarang = $new->getPencatatanRekeningById($no);
         foreach ($arrBarang as $dt) {
             $data['kode_pencatatan_rekening_partner'] = $dt->kode_pencatatan_rekening_partner;

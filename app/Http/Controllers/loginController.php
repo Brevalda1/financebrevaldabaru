@@ -43,14 +43,6 @@ class loginController extends Controller
         else {
             $data = DB::select("select * from pegawai");
             foreach ($data as $key) {
-                // if(($key->username == $req->input('usernamee'))&& password_verify($req->input('pass'),$key->password)){
-                //     // if(($key->username == $req->usernamee)&& password_verify($req->input('pass'),$key->password))
-                //     $users = $key->username;
-                //     session()->put('login',$users);
-                //     echo("tes");
-                //     // return redirect('/');
-                   
-                // }
                 if($req->input('usernamee') ==  $key->username && password_verify($req->input('pass'),$key->password)){
                     $role=$key->role;
                     session()->put('role',$role);
