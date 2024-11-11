@@ -73,12 +73,6 @@
                             <input type="date" name="end_date" class="form-control mr-2" value="{{ request('end_date') }}" placeholder="Tanggal Akhir">
                             <button class="btn btn-primary mr-2" type="submit">Filter</button>
                         </form>
-
-                        {{-- <!-- Form Pencarian -->
-                        <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
-                            <input type="text" name="search" class="form-control mr-sm-2" placeholder="Cari..." value="{{ request('search') }}">
-                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Cari</button>
-                        </form> --}}
                     </div>
 
                     <div class="card-body">
@@ -101,8 +95,8 @@
                                         <th scope="row">{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}</th>
                                         <td>{{ $showpencatatanmasadepan->nama_pencatatan_biaya_masa_depan }}</td>
                                         <td>{{ $showpencatatanmasadepan->jumlah_pencatatan_biaya_masa_depan }}</td>
-                                        <td>{{ $showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan }}</td>
-                                        <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td> 
+                                        <td class="rupiah">{{ $showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan }}</td> <!-- Format Rupiah -->
+                                        <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td>
                                         <td>{{ $showpencatatanmasadepan->tanggal_pencatatan_biaya_masa_depan }}</td>
                                         <td>
                                             <a href="/updatepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}" class="btn btn-info">Edit</a>
@@ -136,5 +130,21 @@
                 "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
             }
         });
+
+        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
+        $('.rupiah').each(function() {
+            const nominal = $(this).text();
+            $(this).text(formatRupiah(nominal));
+        });
     });
+
+    // Fungsi untuk format Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        const numberString = angka.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
+            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix + hasil;
+    }
 </script>

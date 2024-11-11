@@ -69,12 +69,6 @@
                     <div class="card-header">
                         <strong class="card-title">Biaya Operational Non Budgeting</strong>
                         <a class="btn btn-primary" href="/biayaoperationalnonbudgetingform" role="button">Tambah Data</a>
-
-                        <!-- Form Pencarian -->
-                        {{-- <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
-                            <input type="text" name="search" class="form-control mr-sm-2" placeholder="Cari..." value="{{ request('search') }}">
-                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Cari</button>
-                        </form> --}}
                     </div>
 
                     <div class="card-body">
@@ -97,7 +91,7 @@
                                         <td>{{ $showbiayaoperationalnonbudgeting->nama_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->keterangan_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->tanggal_operational_non_budgeting }}</td>
-                                        <td>{{ $showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting }}</td>
+                                        <td class="rupiah">{{ $showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting }}</td> <!-- Format Rupiah -->
                                         <td>
                                             <a href="/updatebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-info">Edit</a>
                                             <a href="/deletebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-danger">Delete</a>
@@ -125,7 +119,23 @@
                 "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
             }
         });
+
+        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
+        $('.rupiah').each(function() {
+            const nominal = $(this).text();
+            $(this).text(formatRupiah(nominal));
+        });
     });
+
+    // Fungsi untuk format Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        const numberString = angka.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
+            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix + hasil;
+    }
 </script>
 
 @include("templatedashboard")

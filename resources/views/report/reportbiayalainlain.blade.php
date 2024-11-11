@@ -84,8 +84,6 @@
                         <strong class="card-title"><h1>Report Biaya Lain Lain</h1></strong><br>
                         <h4>Kode Perusahaan : {{ $kodeperus }}</h4>
                         <h4>Total Pengeluaran Biaya Lain Lain : Rp{{ $sum }}</h4>
-                        {{-- <h4>Total Biaya Non-Budget (Pribadi yang ditolak) : Rp{{ $nonbudget }}</h4>
-                        <h4>Total Semua : Rp{{ $totalsemua }}</h4> --}}
                         <a class="btn btn-primary" href="/downloadreportbiayalainlain?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
                     </div>
                     <div class="card-body">
@@ -108,9 +106,9 @@
                                     <td>{{ $biaya->kode_biaya_lainlain }}</td>
                                     <td>{{ $biaya->nama_biaya_lainlain }}</td>
                                     <td>{{ $biaya->satuan_biaya_lainlain }}</td>
-                                    <td>{{ $biaya->harga_biaya_lainlain }}</td>
+                                    <td>Rp{{ is_numeric($biaya->harga_biaya_lainlain) ? number_format($biaya->harga_biaya_lainlain, 0, ',', '.') : '0' }}</td>
                                     <td>{{ $biaya->created_at }}</td>
-                                    <td>{{ $biaya->jumlah_biaya_lainlain }}</td>
+                                    <td>{{ is_numeric($biaya->jumlah_biaya_lainlain) ? number_format($biaya->jumlah_biaya_lainlain, 0, ',', '.') : '0' }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

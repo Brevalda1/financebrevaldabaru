@@ -49,16 +49,6 @@
                     </div>
 
                     <div class="card-body">
-                        <!-- Search Form -->
-                        {{-- <div class="search-box">
-                            <form action="{{ url('/gajipegawai') }}" method="GET">
-                                <input type="text" name="search" placeholder="Cari nama pegawai..." value="{{ $search }}">
-                                <input type="hidden" name="kodeidpegawai" value="{{ $kodeidpegawai }}">
-                                <button type="submit" class="btn btn-primary">Cari</button>
-                            </form>
-                        </div> --}}
-
-                        <!-- Data Table -->
                         <table id="pegawai-table" class="table table-striped table-bordered table-responsive">
                             <thead>
                                 <tr>
@@ -83,10 +73,10 @@
                                         <td>{{ $showgajipegawai->nomor_ktp_pegawai_gaji }}</td>
                                         <td>{{ $showgajipegawai->nama_pegawai_gaji }}</td>
                                         <td>{{ $showgajipegawai->jumlah_kehadiran_pegawai_gaji }}</td>
-                                        <td>{{ $showgajipegawai->rate_pegawai_gaji }}</td>
-                                        <td>{{ $showgajipegawai->tambahan_lainlain_pegawai_gaji }}</td>
+                                        <td class="rupiah">{{ $showgajipegawai->rate_pegawai_gaji }}</td>
+                                        <td class="rupiah">{{ $showgajipegawai->tambahan_lainlain_pegawai_gaji }}</td>
                                         <td>{{ $showgajipegawai->keterangan_pegawai_gaji }}</td>
-                                        <td>{{ $showgajipegawai->total_pegawai_gaji }}</td>
+                                        <td class="rupiah">{{ $showgajipegawai->total_pegawai_gaji }}</td> <!-- Format Rupiah -->
                                         <td>{{ $showgajipegawai->jabatan_pegawai_gaji }}</td>
                                         <td>{{ $showgajipegawai->nomor_rekening_pegawai_gaji }}</td>
                                         <td>{{ $showgajipegawai->nama_bank_pegawai_gaji }}</td>
@@ -139,7 +129,23 @@
                 "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
             }
         });
+        
+        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
+        $('.rupiah').each(function() {
+            const nominal = $(this).text();
+            $(this).text(formatRupiah(nominal));
+        });
     });
+
+    // Fungsi untuk format Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        const numberString = angka.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
+            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix + hasil;
+    }
 
     // Function to set the delete action URL in the modal
     function setDeleteAction(url) {

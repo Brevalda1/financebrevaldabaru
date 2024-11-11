@@ -89,10 +89,10 @@
                                     <td>{{ $pegawai->nomor_ktp_pegawai_gaji }}</td>
                                     <td>{{ $pegawai->nama_pegawai_gaji }}</td>
                                     <td>{{ $pegawai->jumlah_kehadiran_pegawai_gaji }}</td>
-                                    <td>{{ $pegawai->rate_pegawai_gaji }}</td>
-                                    <td>{{ $pegawai->tambahan_lainlain_pegawai_gaji }}</td>
+                                    <td>Rp{{ number_format($pegawai->rate_pegawai_gaji, 0, ',', '.') }}</td>
+                                    <td>Rp{{ number_format($pegawai->tambahan_lainlain_pegawai_gaji, 0, ',', '.') }}</td>
                                     <td>{{ $pegawai->keterangan_pegawai_gaji }}</td>
-                                    <td>{{ $pegawai->total_pegawai_gaji }}</td>
+                                    <td>Rp{{ number_format($pegawai->total_pegawai_gaji, 0, ',', '.') }}</td>
                                     <td>{{ $pegawai->jabatan_pegawai_gaji }}</td>
                                     <td>{{ $pegawai->nomor_rekening_pegawai_gaji }}</td>
                                     <td>{{ $pegawai->nama_bank_pegawai_gaji }}</td>
@@ -125,7 +125,7 @@
                                     <td>{{ $nonbudget->nama_operational_non_budgeting }}</td>
                                     <td>{{ $nonbudget->keterangan_operational_non_budgeting }}</td>
                                     <td>{{ $nonbudget->tanggal_operational_non_budgeting }}</td>
-                                    <td>{{ $nonbudget->biaya_operational_non_budgeting }}</td>
+                                    <td>Rp{{ number_format($nonbudget->biaya_operational_non_budgeting, 0, ',', '.') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

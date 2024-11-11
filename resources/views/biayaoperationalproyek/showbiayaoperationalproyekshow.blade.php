@@ -24,19 +24,6 @@
                                     <a class="btn btn-primary" href="/biayaoperationalproyekform" role="button">Tambah Data</a>
                                 </div>
                             </div>
-
-                            <!-- Right Side: Search Form -->
-                            <div class="col-md-6 text-right">
-                                <!-- Form Pencarian -->
-                                {{-- <form method="GET" action="{{ url()->current() }}" class="form-inline d-inline-block">
-                                    <div class="input-group">
-                                        <input type="text" name="search" class="form-control" value="{{ $search ?? '' }}" placeholder="Cari...">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary">Cari</button>
-                                        </div>
-                                    </div>
-                                </form> --}}
-                            </div>
                         </div>
                     </div>
 
@@ -59,7 +46,7 @@
                                     <tr>
                                         <td>{{ $showbiayaoperationalproyek->kode_biaya_operational_proyek }}</td>
                                         <td>{{ $showbiayaoperationalproyek->nama_biaya_operational_proyek }}</td>
-                                        <td>{{ $showbiayaoperationalproyek->budget_biaya_operational_proyek }}</td>
+                                        <td class="rupiah">{{ $showbiayaoperationalproyek->budget_biaya_operational_proyek }}</td> <!-- Format Rupiah -->
                                         <td>{{ $showbiayaoperationalproyek->keterangan_biaya_operational_proyek }}</td>
                                         <td>{{ $showbiayaoperationalproyek->tanggal_pelaksanaan_biaya_operational_proyek }}</td>
                                         <td>
@@ -93,5 +80,21 @@
                 "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
             }
         });
+
+        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
+        $('.rupiah').each(function() {
+            const nominal = $(this).text();
+            $(this).text(formatRupiah(nominal));
+        });
     });
+
+    // Fungsi untuk format Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        const numberString = angka.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
+            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix + hasil;
+    }
 </script>

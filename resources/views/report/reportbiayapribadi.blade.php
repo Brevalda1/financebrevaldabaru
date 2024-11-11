@@ -83,8 +83,8 @@
                     <div class="card-header">
                         <strong class="card-title"><h1>Report Biaya Pribadi</h1></strong><br>
                         <h4>Kode Perusahaan : {{ $kodeperus }}</h4>
-                        <h4>Total Pengeluaran Biaya Pribadi yang diterima : Rp{{ $sum }}</h4>
-                        <h4>Total Pengeluaran Biaya Pribadi yang ditolak : Rp{{ $nonbudget }}</h4>
+                        <h4>Total Pengeluaran Biaya Pribadi yang diterima : Rp{{$sum }}</h4>
+                        <h4>Total Pengeluaran Biaya Pribadi yang ditolak : Rp{{$nonbudget }}</h4>
                         <h4>Total Semua : Rp{{ $totalsemua }}</h4>
                         <a class="btn btn-primary" href="/downloadreportbiayapribadi?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
                     </div>
@@ -109,9 +109,9 @@
                                     <td>{{ $biaya->kode_biaya_pribadi }}</td>
                                     <td>{{ $biaya->nama_biaya_pribadi }}</td>
                                     <td>{{ $biaya->satuan_biaya_pribadi }}</td>
-                                    <td>{{ $biaya->harga_biaya_pribadi }}</td>
+                                    <td>Rp{{ is_numeric($biaya->harga_biaya_pribadi) ? number_format($biaya->harga_biaya_pribadi, 0, ',', '.') : '0' }}</td>
                                     <td>{{ $biaya->created_at }}</td>
-                                    <td>{{ $biaya->jumlah_biaya_pribadi }}</td>
+                                    <td>{{ is_numeric($biaya->jumlah_biaya_pribadi) ? number_format($biaya->jumlah_biaya_pribadi, 0, ',', '.') : '0' }}</td>
                                     <td>{{ $biaya->approved_by_biaya_pribadi }}</td>
                                 </tr>
                                 @endforeach
@@ -122,7 +122,8 @@
                         {{ $data->links() }}
 
                         <!-- Tabel Biaya Pribadi yang Ditolak -->
-                        <h4>Berikut Detil Biaya Pribadi yang Ditolak:</h4>  <a class="btn btn-primary" href="/downloadreportbiayapribadiyangditolak?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
+                        <h4>Berikut Detil Biaya Pribadi yang Ditolak:</h4>  
+                        <a class="btn btn-primary" href="/downloadreportbiayapribadiyangditolak?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
                         <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
                             <thead>
                                 <tr>
@@ -141,9 +142,9 @@
                                     <td>{{ $biaya->kode_biaya_pribadi }}</td>
                                     <td>{{ $biaya->nama_biaya_pribadi }}</td>
                                     <td>{{ $biaya->satuan_biaya_pribadi }}</td>
-                                    <td>{{ $biaya->harga_biaya_pribadi }}</td>
+                                    <td>Rp{{ is_numeric($biaya->harga_biaya_pribadi) ? number_format($biaya->harga_biaya_pribadi, 0, ',', '.') : '0' }}</td>
                                     <td>{{ $biaya->created_at }}</td>
-                                    <td>{{ $biaya->jumlah_biaya_pribadi }}</td>
+                                    <td>{{ is_numeric($biaya->jumlah_biaya_pribadi) ? number_format($biaya->jumlah_biaya_pribadi, 0, ',', '.') : '0' }}</td>
                                     <td>{{ $biaya->approved_by_biaya_pribadi }}</td>
                                 </tr>
                                 @endforeach

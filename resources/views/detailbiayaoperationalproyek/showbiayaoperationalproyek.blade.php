@@ -63,7 +63,7 @@
                                         <td>{{ $showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek }}</td>
                                         <td>{{ $showdetailbiayaoperationalproyek->nama_biaya_detail_biaya_operational_proyek }}</td>
                                         <td>{{ $showdetailbiayaoperationalproyek->jumlah_detail_biaya_operational_proyek }}</td>
-                                        <td>{{ $showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek }}</td>
+                                        <td class="rupiah">{{ $showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek }}</td> <!-- Format Rupiah -->
                                         <td>{{ $showdetailbiayaoperationalproyek->approved_by_detail_biaya_operational_proyek }}</td>
                                         <td>
                                             <img src="{{ asset('DetailBiayaOperationalProyek/' . $showdetailbiayaoperationalproyek->bukti_detail_biaya_operational_proyek) }}" width="50" height="50" style="cursor: pointer;" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('{{ asset('DetailBiayaOperationalProyek/' . $showdetailbiayaoperationalproyek->bukti_detail_biaya_operational_proyek) }}')">
@@ -112,5 +112,34 @@
     // JavaScript function to show the image in the modal
     function showImageModal(imageUrl) {
         document.getElementById('modalImage').src = imageUrl;
+    }
+
+    // Inisialisasi DataTables
+    $(document).ready(function() {
+        $('#bootstrap-data-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+            }
+        });
+
+        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
+        $('.rupiah').each(function() {
+            const nominal = $(this).text();
+            $(this).text(formatRupiah(nominal));
+        });
+    });
+
+    // Fungsi untuk format Rupiah
+    function formatRupiah(angka, prefix = 'Rp ') {
+        const numberString = angka.replace(/[^,\d]/g, '').toString(),
+            split = numberString.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
+            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix + hasil;
     }
 </script>
