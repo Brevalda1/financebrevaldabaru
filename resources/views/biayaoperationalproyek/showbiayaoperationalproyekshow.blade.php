@@ -1,6 +1,11 @@
 @include("templateleftpanel")
 @include("templaterightpanel")
 
+<!-- Tambahkan jQuery dan DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="row">
@@ -22,15 +27,15 @@
 
                             <!-- Right Side: Search Form -->
                             <div class="col-md-6 text-right">
-                                <!-- Search Form -->
-                                <form method="GET" action="{{ url()->current() }}" class="form-inline d-inline-block">
+                                <!-- Form Pencarian -->
+                                {{-- <form method="GET" action="{{ url()->current() }}" class="form-inline d-inline-block">
                                     <div class="input-group">
                                         <input type="text" name="search" class="form-control" value="{{ $search ?? '' }}" placeholder="Cari...">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-primary">Cari</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
                             </div>
                         </div>
                     </div>
@@ -38,7 +43,7 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <!-- Data Table -->
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="operational-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Kode</th>
@@ -66,11 +71,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-
-                        <!-- Pagination Links Centered -->
-                        <div class="d-flex justify-content-center">
-                            {{ $datas->appends(request()->input())->links('pagination::bootstrap-4') }}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -80,3 +80,18 @@
     </div>
     @include("templatedashboard")
 </div>
+
+<script>
+    // Inisialisasi DataTables
+    $(document).ready(function() {
+        $('#operational-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+            }
+        });
+    });
+</script>

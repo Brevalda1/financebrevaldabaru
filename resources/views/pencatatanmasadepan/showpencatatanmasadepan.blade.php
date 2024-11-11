@@ -1,6 +1,11 @@
 @include("templateleftpanel")
 @include("templaterightpanel")
 
+<!-- Tambahkan jQuery dan DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <style>
     .pagination {
         display: flex;
@@ -9,11 +14,9 @@
         list-style: none;
         border-radius: 0.25rem;
     }
-
     .pagination li {
         margin: 0 5px;
     }
-
     .pagination a {
         color: #007bff;
         background-color: white;
@@ -22,12 +25,10 @@
         border-radius: 0.25rem;
         text-decoration: none;
     }
-
     .pagination a:hover {
         color: white;
         background-color: #007bff;
     }
-
     .pagination .active a {
         color: white;
         background-color: #007bff;
@@ -64,9 +65,8 @@
                     <div class="card-header">
                         <strong class="card-title">Daftar Pencatatan Masa Depan</strong>
                         <a class="btn btn-primary" href="/pencatatanmasadepanform" role="button">Tambah Data</a>
-                        <a class="btn btn-primary" href="/downloadpencatatanmasadepan   ?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
+                        <a class="btn btn-primary" href="/downloadpencatatanmasadepan?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}" role="button">Download PDF</a>
 
-                        
                         <!-- Form Filter Tanggal -->
                         <form action="{{ url()->current() }}" method="GET" class="form-inline mt-2">
                             <input type="date" name="start_date" class="form-control mr-2" value="{{ request('start_date') }}" placeholder="Tanggal Awal">
@@ -74,16 +74,16 @@
                             <button class="btn btn-primary mr-2" type="submit">Filter</button>
                         </form>
 
-                        <!-- Form Pencarian -->
+                        {{-- <!-- Form Pencarian -->
                         <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
                             <input type="text" name="search" class="form-control mr-sm-2" placeholder="Cari..." value="{{ request('search') }}">
                             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Cari</button>
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="card-body">
                         <!-- Tabel Data -->
-                        <table class="table table-striped table-bordered">
+                        <table id="masadepan-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Kode Pencatatan</th>
@@ -105,12 +105,8 @@
                                         <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td> 
                                         <td>{{ $showpencatatanmasadepan->tanggal_pencatatan_biaya_masa_depan }}</td>
                                         <td>
-                                            <a href="/updatepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}">
-                                                <button class="btn btn-info">Edit</button>
-                                            </a>
-                                            <a href="/deletepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}">
-                                                <button class="btn btn-danger">Delete</button>
-                                            </a>
+                                            <a href="/updatepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}" class="btn btn-info">Edit</a>
+                                            <a href="/deletepencatatanmasadepanform/{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -119,11 +115,6 @@
 
                         <!-- Total Biaya -->
                         <p><strong>Biaya yang diperlukan untuk periode ini: Rp{{ number_format($totalBiaya, 2, ',', '.') }}</strong></p>
-
-                        <!-- Pagination -->
-                        <div class="d-flex justify-content-center">
-                            {{ $datas->links('vendor.pagination.bootstrap-4') }}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -132,3 +123,18 @@
 </div>
 
 @include("templatedashboard")
+
+<script>
+    // Inisialisasi DataTables
+    $(document).ready(function() {
+        $('#masadepan-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+            }
+        });
+    });
+</script>

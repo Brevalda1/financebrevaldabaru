@@ -76,7 +76,7 @@ public function BiayaOperationalProyekselect(Request $request)
         }
 
         // Paginate the results
-        $datas = $query->paginate(5); // Adjust the number per page as needed
+        $datas = $query->get(); // Adjust the number per page as needed
     }
 
     // Pass the data and search term to the view
@@ -84,18 +84,18 @@ public function BiayaOperationalProyekselect(Request $request)
 }
 public function BiayaOperationalProyekselecta(Request $request)
 {
-    // Get the search input from the request
+    // Mendapatkan input pencarian dari request
     $search = $request->input('search');
 
     if (Session::has('datas')) {
         $datas = Session::get('datas');
     } else {
-        // Build the query
+        // Membangun query
         $query = DB::table('header_biaya_operational_proyek')
             ->where('cek_status_header_biaya_operational_proyek', 1)
             ->orderBy('created_at', 'desc');
 
-        // Apply search filters if search input is provided
+        // Menerapkan filter pencarian jika input pencarian ada
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('kode_biaya_operational_proyek', 'like', "%$search%")
@@ -106,13 +106,14 @@ public function BiayaOperationalProyekselecta(Request $request)
             });
         }
 
-        // Paginate the results
-        $datas = $query->paginate(5); // Adjust the number per page as needed
+        // Mengambil semua hasil tanpa pagination Laravel
+        $datas = $query->get();
     }
 
-    // Pass the data and search term to the view
+    // Mengirim data dan kata pencarian ke view
     return view('BiayaOperationalProyek.showBiayaOperationalProyek', ['datas' => $datas, 'search' => $search]);
 }
+
 
 public function BiayaOperationalProyekedit($no)
 {

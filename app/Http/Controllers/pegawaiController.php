@@ -63,19 +63,21 @@ class pegawaiController extends Controller
 
     }
 
-    public function Pegawaiselect()
-    {
-        if(Session::Has('datas')){
-            $param['datas'] = Session::get('datas');
-        }
-        else{
-            $data = DB::select("select * from pegawai where cek_status_pegawai = 1 order by created_at desc");
-            $param['datas'] = $data;
-            // dd($param['datas']);
-            
-        }
-        return view("pegawai.showpegawai",$param);
+   public function Pegawaiselect()
+{
+    if (Session::has('datas')) {
+        $param['datas'] = Session::get('datas');
+    } else {
+        // Ambil semua data pegawai tanpa pagination
+        $data = DB::table('pegawai')
+            ->where('cek_status_pegawai', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $param['datas'] = $data;
     }
+    return view("pegawai.showpegawai", $param);
+}
+
     public function Pegawaiedit($no)
     {
         $dataperusahaan = DB::select("select * from perusahaan where cek_status_perusahaan = 1 order by created_at desc");

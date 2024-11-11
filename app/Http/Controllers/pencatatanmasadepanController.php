@@ -49,16 +49,16 @@ class pencatatanmasadepanController extends Controller
         $search = $request->input('search');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-
+    
         $dataQuery = DB::table('pencatatan_biaya_untuk_masa_depan')
             ->where('cek_status_pencatatan_biaya_masa_depan', 1)
             ->where('kode_pencatatan_biaya_masa_depan', 'like', "$kodeidpegawaiperus%");
-
+    
         // Filter tanggal jika ada
         if ($startDate && $endDate) {
             $dataQuery->whereBetween('tanggal_pencatatan_biaya_masa_depan', [$startDate, $endDate]);
         }
-
+    
         // Jika ada pencarian, tambahkan filter pencarian
         if ($search) {
             $dataQuery->where(function($query) use ($search) {
@@ -67,16 +67,17 @@ class pencatatanmasadepanController extends Controller
                       ->orWhere('keterangan_pencatatan_biaya_masa_depan', 'like', "%$search%");
             });
         }
-
+    
         // Total biaya untuk periode ini
         $totalBiaya = $dataQuery->sum('harga_pencatatan_biaya_masa_depan');
         
-        // Pagination dengan 10 item per halaman
-        $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
+        // Mengambil semua data tanpa pagination
+        $param['datas'] = $dataQuery->get(); // Menggunakan get() alih-alih paginate()
         $param['totalBiaya'] = $totalBiaya;
-
+    
         return view("pencatatanmasadepan.showpencatatanmasadepan", $param);
     }
+    
     
     public function Pencatatanmasadepanedit($no)
 {

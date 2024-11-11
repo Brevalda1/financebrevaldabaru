@@ -58,39 +58,39 @@ class biayapribadiController extends Controller
     }
 
     public function Biayapribadiselect(Request $request)
-{    
-    $sessiondata = Session()->get('login');
-    $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
-    // Ambil input pencarian dari user
-    $search = $request->input('search');
+    {    
+        $sessiondata = Session()->get('login');
+        $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
+        $search = $request->input('search');
+        
+        if (Session::has('datas')) {
+            $param['datas'] = Session::get('datas');
+        } else {
+            // Query dasar
+            $dataQuery = DB::table('biaya_pribadi')
+                ->where('cek_status_biaya_pribadi', 1)
+                ->where('cek_approval_biaya_pribadi', 1)
+                ->where('kode_biaya_pribadi', 'like', "$kodeidpegawaiperus%")
+                ->orderBy('created_at', 'desc');
     
-    if(Session::Has('datas')){
-        $param['datas'] = Session::get('datas');
-    } else {
-        // Query dasar
-        $dataQuery = DB::table('biaya_pribadi')
-            ->where('cek_status_biaya_pribadi', 1)
-            ->where('cek_approval_biaya_pribadi', 1)
-            ->where('kode_biaya_pribadi', 'like', "$kodeidpegawaiperus%")
-            ->orderBy('created_at', 'desc');
-
-        // Jika ada pencarian, tambahkan filter pencarian
-        if ($search) {
-            $dataQuery->where(function ($query) use ($search) {
-                $query->where('kode_biaya_pribadi', 'like', "%$search%")
-                      ->orWhere('nama_biaya_pribadi', 'like', "%$search%")
-                      ->orWhere('satuan_biaya_pribadi', 'like', "%$search%")
-                      ->orWhere('harga_biaya_pribadi', 'like', "%$search%")
-                      ->orWhere('tanggal_biaya_pribadi', 'like', "%$search%");
-            });
+            // Jika ada pencarian, tambahkan filter pencarian
+            if ($search) {
+                $dataQuery->where(function ($query) use ($search) {
+                    $query->where('kode_biaya_pribadi', 'like', "%$search%")
+                          ->orWhere('nama_biaya_pribadi', 'like', "%$search%")
+                          ->orWhere('satuan_biaya_pribadi', 'like', "%$search%")
+                          ->orWhere('harga_biaya_pribadi', 'like', "%$search%")
+                          ->orWhere('tanggal_biaya_pribadi', 'like', "%$search%");
+                });
+            }
+    
+            // Mengambil semua hasil tanpa pagination
+            $param['datas'] = $dataQuery->get();
         }
-
-        // Pagination dengan 10 item per halaman
-        $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
+    
+        return view("biayapribadi.showbiayapribadi", $param);
     }
-
-    return view("biayapribadi.showbiayapribadi", $param);
-}
+    
 
     public function Biayapribadiedit($no)
     {

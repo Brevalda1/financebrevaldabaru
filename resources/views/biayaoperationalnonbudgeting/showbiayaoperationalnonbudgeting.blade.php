@@ -1,6 +1,11 @@
 @include("templateleftpanel")
 @include("templaterightpanel")
 
+<!-- Tambahkan jQuery dan DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <style>
     .pagination {
         display: flex;
@@ -63,19 +68,18 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Biaya Operational Non Budgeting</strong>
-
                         <a class="btn btn-primary" href="/biayaoperationalnonbudgetingform" role="button">Tambah Data</a>
 
                         <!-- Form Pencarian -->
-                        <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
+                        {{-- <form action="{{ url()->current() }}" method="GET" class="form-inline float-right">
                             <input type="text" name="search" class="form-control mr-sm-2" placeholder="Cari..." value="{{ request('search') }}">
                             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Cari</button>
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="card-body">
                         <!-- Tabel Data -->
-                        <table class="table table-striped table-bordered">
+                        <table id="biaya-operational-non-budgeting-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Kode</th>
@@ -89,33 +93,39 @@
                             <tbody>
                                 @foreach ($datas as $showbiayaoperationalnonbudgeting)
                                     <tr>
-                                        <th scope="row">{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}</th>
+                                        <td>{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->nama_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->keterangan_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->tanggal_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting }}</td>
                                         <td>
-                                            <a href="/updatebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}">
-                                                <button class="btn btn-info">Edit</button>
-                                            </a>
-                                            <a href="/deletebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}">
-                                                <button class="btn btn-danger">Delete</button>
-                                            </a>
+                                            <a href="/updatebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-info">Edit</a>
+                                            <a href="/deletebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
-                        <!-- Pagination -->
-                        <div class="d-flex justify-content-center">
-                            {{ $datas->links('vendor.pagination.bootstrap-4') }}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Inisialisasi DataTables
+    $(document).ready(function() {
+        $('#biaya-operational-non-budgeting-table').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+            }
+        });
+    });
+</script>
 
 @include("templatedashboard")

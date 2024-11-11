@@ -62,10 +62,9 @@ public function Biayalainlainselect(Request $request)
 {
     $sessiondata = Session()->get('login');
     $kodeidpegawaiperus = $sessiondata['kode_perusahaan'];
-    // Ambil input pencarian dari user
     $search = $request->input('search');
     
-    if(Session::Has('datas')){
+    if (Session::has('datas')) {
         $param['datas'] = Session::get('datas');
     } else {
         // Query dasar dengan kondisi pencarian
@@ -85,12 +84,13 @@ public function Biayalainlainselect(Request $request)
             });
         }
 
-        // Pagination dengan 10 item per halaman
-        $param['datas'] = $dataQuery->paginate(10)->appends($request->all());
+        // Mengambil semua hasil tanpa pagination Laravel
+        $param['datas'] = $dataQuery->get();
     }
 
     return view("biayalainlain.showbiayalainlain", $param);
 }
+
 
 
 public function Biayalainlainedit($no)

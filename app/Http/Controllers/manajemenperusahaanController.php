@@ -47,15 +47,16 @@ class manajemenperusahaanController extends Controller
 
     public function ManajemenPerusahaanselect()
     {
-        if(Session::Has('datas')){
+        if(Session::has('datas')){
             $param['datas'] = Session::get('datas');
-        }
-        else{
-            $data = DB::select("select * from perusahaan where cek_status_perusahaan = 1 order by created_at desc");
+        } else {
+            $data = DB::table('perusahaan')
+                        ->where('cek_status_perusahaan', 1)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
             $param['datas'] = $data;
-            // dd($param['datas']);
         }
-        return view("manajemenperusahaan.showmanajemenperusahaan",$param);
+        return view('manajemenperusahaan.showmanajemenperusahaan', $param);
     }
     public function ManajemenPerusahaanedit($no)
     {
