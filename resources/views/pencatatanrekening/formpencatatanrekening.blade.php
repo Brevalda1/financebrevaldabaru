@@ -22,7 +22,7 @@
     }
 </style>
 
-<div id="pay-invoice">
+<div id="pay-invoice" class="px-5">
     <div class="card-body">
         <div class="card-title">
             <h3 class="text-center">Pencatatan Rekening</h3>

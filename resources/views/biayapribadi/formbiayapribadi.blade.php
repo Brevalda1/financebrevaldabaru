@@ -1,9 +1,8 @@
-
 @include("templateleftpanel")
 @include("templaterightpanel")
 
- <!-- Credit Card -->
- <div id="pay-invoice">
+<!-- Credit Card -->
+<div id="pay-invoice" class="px-5">
     <div class="card-body">
         <div class="card-title">
             <h3 class="text-center">Biaya Pribadi</h3>
@@ -11,32 +10,46 @@
         <hr>
         <form action="" method="post" novalidate="novalidate" enctype="multipart/form-data">
             @csrf
-            <div class="form-group text-center">
-            </div>
             <div class="form-group">
                 <label for="cc-payment" class="control-label mb-1">Kode biaya pribadi</label>
-                <input id="cc-pament" name="form_kode_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$kode}}"readonly >
+                <input id="cc-pament" name="form_kode_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" value="{{$kode}}" readonly >
             </div>
+            
             <div class="form-group">
                 <label for="cc-payment" class="control-label mb-1">jenis pengeluaran</label>
                 <input id="cc-pament" name="form_nama_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
             </div>
-            <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">jumlah</label>
-                <input id="cc-pament" name="form_satuan_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cc-payment" class="control-label mb-1">satuan</label>
+                        <input id="cc-pament" name="form_satuan_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cc-payment" class="control-label mb-1">harga</label>
+                        <input id="cc-pament" name="form_harga_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">harga</label>
-                <input id="cc-pament" name="form_harga_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cc-payment" class="control-label mb-1">tanggal</label>
+                        <input id="cc-pament" name="form_tanggal_biaya_pribadi" type="date" class="form-control" aria-required="true" aria-invalid="false" >
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cc-payment" class="control-label mb-1">jumlah</label>
+                        <input id="cc-pament" name="form_jumlah_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">tanggal</label>
-                <input id="cc-pament" name="form_tanggal_biaya_pribadi" type="date" class="form-control" aria-required="true" aria-invalid="false" >
-            </div>
-            <div class="form-group">
-                <label for="cc-payment" class="control-label mb-1">jumlah</label>
-                <input id="cc-pament" name="form_jumlah_biaya_pribadi" type="text" class="form-control" aria-required="true" aria-invalid="false" >
-            </div>
+
             <div class="row form-group">
                 <div class="col col-md-3"><label for="file-input" class=" form-control-label">Bukti : </label></div>
                 <div class="col-12 col-md-9"><input type="file" id="file-input" name="form_bukti_biaya_pribadi" class="form-control-file"></div>
