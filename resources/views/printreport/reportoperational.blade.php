@@ -18,7 +18,7 @@
 </head>
 <body>
     <h1>Laporan Operasional Gaji Pegawai</h1>
-        <p>Kode Perusahaan: {{ $kodeperus }}</p>
+    <p>Kode Perusahaan: {{ $kodeperus }}</p>
     <p>Total Gaji Pegawai: Rp{{ $sum }}</p>
     {{-- <p>Total Biaya Non Budgeting: Rp{{ $nonbudget }}</p>
     <p>Total Semua: Rp{{ $totalsemua }}</p> --}}
@@ -36,39 +36,29 @@
                 <th>tambahan lain-lain</th>
                 <th>keterangan</th>
                 <th>total</th>
-   
                 <th>nomor rekening</th>
                 <th>nama bank</th>
-               
-              </tr>
+            </tr>
         </thead>
         <tbody>
             @php
-            $datas = $data;
-          @endphp   
-            @foreach ( $datas as $showg)
-                      <tr>
-                        <th scope="row">{{$showg->id_pegawai_gaji}}</th>
-                          <td>{{$showg->nomor_ktp_pegawai_gaji}}</td>
-                          <td>{{$showg->nama_pegawai_gaji}}</td>
-                          <td>{{$showg->jabatan_pegawai_gaji}}</td>
-                          <td>{{$showg->jumlah_kehadiran_pegawai_gaji}}</td>
-                          <td>{{$showg->rate_pegawai_gaji}}</td>
-                          <td>{{$showg->tambahan_lainlain_pegawai_gaji}}</td>
-                          <td>{{$showg->keterangan_pegawai_gaji}}</td>
-                          <td>{{$showg->total_pegawai_gaji}}</td>
-                          <td>{{$showg->nomor_rekening_pegawai_gaji}}</td>
-                          <td>{{$showg->nama_bank_pegawai_gaji}}</td>
-                
-
-                          
-                            
-    
-
-
-
-                      </tr>
-                      @endforeach
+                $datas = $data;
+            @endphp   
+            @foreach ($datas as $showg)
+                <tr>
+                    <th scope="row">{{$showg->id_pegawai_gaji}}</th>
+                    <td>{{$showg->nomor_ktp_pegawai_gaji}}</td>
+                    <td>{{$showg->nama_pegawai_gaji}}</td>
+                    <td>{{$showg->jabatan_pegawai_gaji}}</td>
+                    <td>{{$showg->jumlah_kehadiran_pegawai_gaji}}</td>
+                    <td>Rp{{ number_format($showg->rate_pegawai_gaji, 2, ',', '.') }}</td>
+                    <td>Rp{{ number_format($showg->tambahan_lainlain_pegawai_gaji, 2, ',', '.') }}</td>
+                    <td>{{$showg->keterangan_pegawai_gaji}}</td>
+                    <td>Rp{{ number_format($showg->total_pegawai_gaji, 2, ',', '.') }}</td>
+                    <td>{{$showg->nomor_rekening_pegawai_gaji}}</td>
+                    <td>{{$showg->nama_bank_pegawai_gaji}}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 

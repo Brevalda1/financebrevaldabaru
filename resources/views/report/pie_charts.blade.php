@@ -95,7 +95,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chart1'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($data1[$index], 2) }}</td>
+                        <td>Rp{{ number_format($data1[$index], 2) }}</td>
                         <td>{{ number_format(($data1[$index] / array_sum($data1)) * 100, 2) }}</td>
                     </tr>
                 @endforeach
@@ -127,7 +127,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chart2'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($data2[$index], 2) }}</td>
+                        <td>Rp{{ number_format($data2[$index], 2) }}</td>
                         <td>{{ number_format(($data2[$index] / array_sum($data2)) * 100, 2) }}</td>
                     </tr>
                 @endforeach
@@ -159,7 +159,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chart3'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($data3[$index], 2) }}</td>
+                        <td>Rp{{ number_format($data3[$index], 2) }}</td>
                         <td>{{ number_format(($data3[$index] / array_sum($data3)) * 100, 2) }}</td>
                     </tr>
                 @endforeach
@@ -191,7 +191,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chart4'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($data4[$index], 2) }}</td>
+                        <td>Rp{{ number_format($data4[$index], 2) }}</td>
                         <td>{{ number_format(($data4[$index] / array_sum($data4)) * 100, 2) }}</td>
                     </tr>
                 @endforeach
@@ -223,7 +223,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chart5'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($data5[$index], 2) }}</td>
+                        <td>Rp{{ number_format($data5[$index], 2) }}</td>
                         <td>{{ number_format(($data5[$index] / array_sum($data5)) * 100, 2) }}</td>
                     </tr>
                 @endforeach
@@ -258,7 +258,7 @@
                             <div class="legend-color-box" style="background-color: {{ $chartColors['chartTotal'][$label] }}"></div>
                         </td>
                         <td>{{ $label }}</td>
-                        <td>{{ number_format($value, 2) }}</td>
+                        <td>Rp{{ number_format($value, 2) }}</td>
                         <td>{{ number_format(($value / $totalSum) * 100, 2) }}</td>
                     </tr>
                 @endforeach

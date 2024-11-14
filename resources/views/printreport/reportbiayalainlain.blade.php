@@ -46,22 +46,13 @@
         <tbody>
             @foreach ( $data as $showbiayalainlain)
             <tr>
-              <th scope="row">{{$showbiayalainlain->kode_biaya_lainlain}}</th>
+                <th scope="row">{{$showbiayalainlain->kode_biaya_lainlain}}</th>
                 <td>{{$showbiayalainlain->nama_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->satuan_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->tanggal_biaya_lainlain}}</td>
                 <td>{{$showbiayalainlain->jumlah_biaya_lainlain}}</td>
-                <td>{{$showbiayalainlain->harga_biaya_lainlain}}</td>
-               
-
-             
-                  
-
-
-
-
+                <td>Rp{{ number_format($showbiayalainlain->harga_biaya_lainlain, 2) }}</td>
             </tr>
-      
             @endforeach
         </tbody>
     </table>

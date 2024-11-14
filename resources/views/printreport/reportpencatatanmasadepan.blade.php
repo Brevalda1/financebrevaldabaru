@@ -19,7 +19,6 @@
                 <th>Kode Pencatatan</th>
                 <th>Nama Pencatatan</th>
                 <th>Jumlah Pencatatan</th>
-        
                 <th>Keterangan</th>
                 <th>Tanggal</th>
                 <th>Harga</th>
@@ -31,10 +30,9 @@
                     <td>{{ $showpencatatanmasadepan->kode_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->nama_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->jumlah_pencatatan_biaya_masa_depan }}</td>
-                
                     <td>{{ $showpencatatanmasadepan->keterangan_pencatatan_biaya_masa_depan }}</td>
                     <td>{{ $showpencatatanmasadepan->tanggal_pencatatan_biaya_masa_depan }}</td>
-                    <td>{{ $showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan }}</td>
+                    <td>Rp{{ number_format($showpencatatanmasadepan->harga_pencatatan_biaya_masa_depan, 2, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>

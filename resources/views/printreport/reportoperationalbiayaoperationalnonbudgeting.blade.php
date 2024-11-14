@@ -37,13 +37,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($datas as $showbiayaoperationalnonbudgeting)
+            @foreach ($data2 as $showbiayaoperationalnonbudgeting)
                 <tr>
                     <th scope="row">{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}</th>
                     <td>{{ $showbiayaoperationalnonbudgeting->nama_operational_non_budgeting }}</td>
                     <td>{{ $showbiayaoperationalnonbudgeting->keterangan_operational_non_budgeting }}</td>
                     <td>{{ $showbiayaoperationalnonbudgeting->tanggal_operational_non_budgeting }}</td>
-                    <td>{{ $showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting }}</td>
+                    <td>Rp{{ number_format($showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting, 2, ',', '.') }}</td>
                     {{-- <td>
                         <a href="/updatebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}">
                             <button class="btn btn-info">Edit</button>

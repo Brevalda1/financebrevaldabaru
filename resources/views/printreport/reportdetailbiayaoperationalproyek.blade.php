@@ -54,7 +54,7 @@
                       <th scope="row">{{$showdetailbiayaoperationalproyek->kode_biaya_detail_operational_proyek}}</th>
                         <td>{{$showdetailbiayaoperationalproyek->nama_biaya_detail_biaya_operational_proyek}}</td>
                         <td>{{$showdetailbiayaoperationalproyek->jumlah_detail_biaya_operational_proyek}}</td>
-                        <td>{{$showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek}}</td>
+                        <td>Rp{{ number_format($showdetailbiayaoperationalproyek->harga_detail_biaya_operational_proyek, 2, ',', '.') }}</td>
                         <td>{{$showdetailbiayaoperationalproyek->approved_by_detail_biaya_operational_proyek}}</td>
                         
                         {{-- <td>

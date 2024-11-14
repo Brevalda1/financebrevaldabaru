@@ -53,7 +53,7 @@
         <div class="chart-footer">
             <h3>Total Gaji Pegawai</h3>
             @foreach($labels1 as $index => $label)
-                <p>{{ $label }}: {{ number_format($data1[$index], 2) }} IDR ({{ number_format(($data1[$index] / array_sum($data1)) * 100, 2) }}%)</p>
+                <p>{{ $label }}:Rp{{ number_format($data1[$index], 2) }}  ({{ number_format(($data1[$index] / array_sum($data1)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -64,7 +64,7 @@
         <div class="chart-footer">
             <h3>Total Biaya Operasional</h3>
             @foreach($labels2 as $index => $label)
-                <p>{{ $label }}: {{ number_format($data2[$index], 2) }} IDR ({{ number_format(($data2[$index] / array_sum($data2)) * 100, 2) }}%)</p>
+                <p>{{ $label }}: Rp{{ number_format($data2[$index], 2) }}  ({{ number_format(($data2[$index] / array_sum($data2)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -75,7 +75,7 @@
         <div class="chart-footer">
             <h3>Total Biaya Operasional Proyek</h3>
             @foreach($labels3 as $index => $label)
-                <p>{{ $label }}: {{ number_format($data3[$index], 2) }} IDR ({{ number_format(($data3[$index] / array_sum($data3)) * 100, 2) }}%)</p>
+                <p>{{ $label }}: Rp{{ number_format($data3[$index], 2) }} ({{ number_format(($data3[$index] / array_sum($data3)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -86,7 +86,7 @@
         <div class="chart-footer">
             <h3>Total Biaya Pribadi</h3>
             @foreach($labels4 as $index => $label)
-                <p>{{ $label }}: {{ number_format($data4[$index], 2) }} IDR ({{ number_format(($data4[$index] / array_sum($data4)) * 100, 2) }}%)</p>
+                <p>{{ $label }}: Rp{{ number_format($data4[$index], 2) }} ({{ number_format(($data4[$index] / array_sum($data4)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -97,7 +97,7 @@
         <div class="chart-footer">
             <h3>Total Biaya Lain-lain</h3>
             @foreach($labels5 as $index => $label)
-                <p>{{ $label }}: {{ number_format($data5[$index], 2) }} IDR ({{ number_format(($data5[$index] / array_sum($data5)) * 100, 2) }}%)</p>
+                <p>{{ $label }}: Rp{{ number_format($data5[$index], 2) }} ({{ number_format(($data5[$index] / array_sum($data5)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -108,7 +108,7 @@
         <div class="chart-footer">
             <h3>Total Perbandingan Pengeluaran Keseluruhan</h3>
             @foreach($totalData as $label => $value)
-                <p>{{ $label }}: {{ number_format($value, 2) }} IDR ({{ number_format(($value / array_sum($totalData)) * 100, 2) }}%)</p>
+                <p>{{ $label }}: Rp{{ number_format($value, 2) }}  ({{ number_format(($value / array_sum($totalData)) * 100, 2) }}%)</p>
             @endforeach
         </div>
     </div>
@@ -158,7 +158,7 @@
                             label: function(tooltipItem) {
                                 var value = tooltipItem.raw;
                                 var percentage = ((value / total) * 100).toFixed(2);
-                                return tooltipItem.label + ': ' + value.toLocaleString() + ' IDR ';
+                                return tooltipItem.label + ': Rp' + value.toLocaleString();
                             }
                         }
                     }
