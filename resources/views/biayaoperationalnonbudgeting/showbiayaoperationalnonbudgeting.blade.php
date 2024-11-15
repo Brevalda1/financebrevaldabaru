@@ -91,7 +91,7 @@
                                         <td>{{ $showbiayaoperationalnonbudgeting->nama_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->keterangan_operational_non_budgeting }}</td>
                                         <td>{{ $showbiayaoperationalnonbudgeting->tanggal_operational_non_budgeting }}</td>
-                                        <td class="rupiah">{{ $showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting }}</td> <!-- Format Rupiah -->
+                                        <td>Rp{{ number_format($showbiayaoperationalnonbudgeting->biaya_operational_non_budgeting, 2, ',', '.') }}</td>
                                         <td>
                                             <a href="/updatebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-info">Edit</a>
                                             <a href="/deletebiayaoperationalnonbudgetingform/{{ $showbiayaoperationalnonbudgeting->kode_operational_non_budgeting }}" class="btn btn-danger">Delete</a>
@@ -116,26 +116,10 @@
             "ordering": true,
             "info": true,
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json"
             }
         });
-
-        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
-        $('.rupiah').each(function() {
-            const nominal = $(this).text();
-            $(this).text(formatRupiah(nominal));
-        });
     });
-
-    // Fungsi untuk format Rupiah
-    function formatRupiah(angka, prefix = 'Rp ') {
-        const numberString = angka.replace(/[^,\d]/g, '').toString(),
-            split = numberString.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
-            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix + hasil;
-    }
 </script>
 
 @include("templatedashboard")

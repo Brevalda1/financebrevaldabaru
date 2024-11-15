@@ -46,7 +46,7 @@
                                     <tr>
                                         <td>{{ $showbiayaoperationalproyek->kode_biaya_operational_proyek }}</td>
                                         <td>{{ $showbiayaoperationalproyek->nama_biaya_operational_proyek }}</td>
-                                        <td class="rupiah">{{ $showbiayaoperationalproyek->budget_biaya_operational_proyek }}</td> <!-- Format Rupiah -->
+                                        <td>Rp{{ number_format($showbiayaoperationalproyek->budget_biaya_operational_proyek, 2, ',', '.') }}</td>
                                         <td>{{ $showbiayaoperationalproyek->keterangan_biaya_operational_proyek }}</td>
                                         <td>{{ $showbiayaoperationalproyek->tanggal_pelaksanaan_biaya_operational_proyek }}</td>
                                         <td>
@@ -77,24 +77,8 @@
             "ordering": true,
             "info": true,
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json" // Bahasa Indonesia
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Indonesian.json"
             }
         });
-
-        // Format semua elemen dengan kelas 'rupiah' ke format Rupiah
-        $('.rupiah').each(function() {
-            const nominal = $(this).text();
-            $(this).text(formatRupiah(nominal));
-        });
     });
-
-    // Fungsi untuk format Rupiah
-    function formatRupiah(angka, prefix = 'Rp ') {
-        const numberString = angka.replace(/[^,\d]/g, '').toString(),
-            split = numberString.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa) + (split[0].substr(sisa).match(/\d{3}/gi) || []).join('.'),
-            hasil = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix + hasil;
-    }
 </script>
